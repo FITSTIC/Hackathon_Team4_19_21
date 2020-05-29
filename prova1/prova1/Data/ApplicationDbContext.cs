@@ -8,6 +8,8 @@ namespace prova1.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public DbSet<WeatherForecast> Previsioni { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
