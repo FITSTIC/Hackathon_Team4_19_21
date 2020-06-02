@@ -1,11 +1,30 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 
+/* CODICE X SHARED BACKGROUND - da revisionare*/
 body {
     background: url('https://www.fitstic.it/it/attachments/file/view?hash=30f4a2b74003a4fced6a55715d7906e9&canCache=1') no-repeat center center fixed;
     background-size: cover;
 }
 
+
+/* CODICE X MAIN DASHBOARD */
+body {
+    margin-top: 20px;
+}
+
+#page-wrapper {
+    padding: 15px 25px;
+}
+
+.announcement-text {
+    font-size:35px;
+}
+
+.announcement-bottom {
+    font-size: 30px;
+}
+/*END*/
 .container {
     margin-right: auto;
     margin-left: auto;

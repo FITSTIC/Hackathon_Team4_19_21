@@ -51,15 +51,29 @@ namespace Fitstic_Hackathon_4.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Pwd")]
             public string Password { get; set; }
 
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Text)]
+            [Display(Name = "Nome")]
+            public string Nome { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Text)]
+            [Display(Name = "Cognome")]
+            public string Cognome { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.PhoneNumber)]
+            [Display(Name = "Cell")]
+            public string NumCell { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
