@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fitstic_Hackathon_4.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200604144716_TabellaOperatori")]
-    partial class TabellaOperatori
+    [Migration("20200604153915_Tabelle")]
+    partial class Tabelle
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,6 +214,157 @@ namespace Fitstic_Hackathon_4.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("prova1.Data.Corso", b =>
+                {
+                    b.Property<int>("IdCorso")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AnnoAccademico")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataFine")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataInizio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdOrganizzatore")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Sede")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IdCorso");
+
+                    b.ToTable("TabCorsi");
+                });
+
+            modelBuilder.Entity("prova1.Data.Esame", b =>
+                {
+                    b.Property<int>("IdEsame")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdModulo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdPartecipante")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Punteggio")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("IdEsame");
+
+                    b.ToTable("TabEsami");
+                });
+
+            modelBuilder.Entity("prova1.Data.Iscrizione", b =>
+                {
+                    b.Property<int>("IdIscrizione")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataIscrizione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdCorso")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdPartecipante")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("IdIscrizione");
+
+                    b.ToTable("TabIscrizioni");
+                });
+
+            modelBuilder.Entity("prova1.Data.Modulo", b =>
+                {
+                    b.Property<int>("IdModulo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CorsoIdCorso")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataFine")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataInizio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdCorso")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdDocente")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdTutor")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Materia")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IdModulo");
+
+                    b.HasIndex("CorsoIdCorso");
+
+                    b.ToTable("TabModuli");
+                });
+
+            modelBuilder.Entity("prova1.Data.Partecipante", b =>
+                {
+                    b.Property<int>("IdPart")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("AnnoDiploma")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Citta")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Cognome")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataNascita")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Indirizzo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoDiploma")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IdPart");
+
+                    b.ToTable("TabPartecipanti");
+                });
+
             modelBuilder.Entity("prova1.Data.Personale", b =>
                 {
                     b.Property<int>("IdPers")
@@ -242,7 +393,7 @@ namespace Fitstic_Hackathon_4.Migrations
 
                     b.HasKey("IdPers");
 
-                    b.ToTable("Operatori");
+                    b.ToTable("TabOperatori");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -294,6 +445,13 @@ namespace Fitstic_Hackathon_4.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("prova1.Data.Modulo", b =>
+                {
+                    b.HasOne("prova1.Data.Corso", null)
+                        .WithMany("ListaModuli")
+                        .HasForeignKey("CorsoIdCorso");
                 });
 #pragma warning restore 612, 618
         }
