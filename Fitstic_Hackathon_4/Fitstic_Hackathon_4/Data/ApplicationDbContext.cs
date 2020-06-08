@@ -21,9 +21,9 @@ namespace Fitstic_Hackathon_4.Data
         {
         }
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    base.OnModelCreating(builder);
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
 
         //    builder.Entity<Personale>().HasData(
         //        new Personale
@@ -50,22 +50,22 @@ namespace Fitstic_Hackathon_4.Data
 
         //       });
 
-        //    builder.Entity<Partecipante>().HasData(
-        //       new Partecipante
-        //       {
-        //           IdPart = 56,
-        //           DataNascita = new DateTime(2000, 05, 25),
-        //           Citta = "Brisighella",
-        //           Nome = "Aldo",
-        //           Cognome = " Bianchi",
-        //           Email = "eccomi@gmail.com",
-        //           Telefono = "15874",
-        //           AnnoDiploma = new DateTime(2000),
-        //           TipoDiploma = "Tecnico Elettronico",
-        //           Indirizzo = "Via Larga, 45"
+        builder.Entity<Partecipante>().HasData(
+               new Partecipante
+               {
+                   Id = 56,
+                   DataNascita = new DateTime(2000, 05, 25),
+                   Citta = "Brisighella",
+                   Nome = "Aldo",
+                   Cognome = " Bianchi",
+                   Email = "eccomi@gmail.com",
+                   Telefono = "15874",
+                   AnnoDiploma = new DateTime(2000),
+                   TipoDiploma = "Tecnico Elettronico",
+                   Indirizzo = "Via Larga, 45"
 
-        //       });
+               });
 
-        //}
+        }
     }
 }

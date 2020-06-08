@@ -17,6 +17,7 @@ namespace Fitstic_Hackathon_4.Data
         public string Sede { get; set; }
         public int OrganizzatoreId { get; set; }
         public List<Modulo> ListaModuli { get; set; }
+        public List<Partecipante> ListaPartecipanti { get; set; }
 
         public Corso()
         {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Fitstic_Hackathon_4.Migrations
 {
-    public partial class AllTabelleOK : Migration
+    public partial class TabOk : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -129,27 +129,6 @@ namespace Fitstic_Hackathon_4.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TabOrganizzatori", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TabPartecipanti",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nome = table.Column<string>(nullable: false),
-                    Cognome = table.Column<string>(nullable: true),
-                    DataNascita = table.Column<DateTime>(nullable: false),
-                    Citta = table.Column<string>(nullable: true),
-                    Indirizzo = table.Column<string>(nullable: true),
-                    Telefono = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    TipoDiploma = table.Column<string>(nullable: true),
-                    AnnoDiploma = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TabPartecipanti", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -301,6 +280,39 @@ namespace Fitstic_Hackathon_4.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TabPartecipanti",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(nullable: false),
+                    Cognome = table.Column<string>(nullable: true),
+                    DataNascita = table.Column<DateTime>(nullable: false),
+                    Citta = table.Column<string>(nullable: true),
+                    Indirizzo = table.Column<string>(nullable: true),
+                    Telefono = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    TipoDiploma = table.Column<string>(nullable: true),
+                    AnnoDiploma = table.Column<DateTime>(nullable: false),
+                    CorsoId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TabPartecipanti", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TabPartecipanti_TabCorsi_CorsoId",
+                        column: x => x.CorsoId,
+                        principalTable: "TabCorsi",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "TabPartecipanti",
+                columns: new[] { "Id", "AnnoDiploma", "Citta", "Cognome", "CorsoId", "DataNascita", "Email", "Indirizzo", "Nome", "Telefono", "TipoDiploma" },
+                values: new object[] { 56, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2000), "Brisighella", " Bianchi", null, new DateTime(2000, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "eccomi@gmail.com", "Via Larga, 45", "Aldo", "15874", "Tecnico Elettronico" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -341,6 +353,11 @@ namespace Fitstic_Hackathon_4.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_TabModuli_CorsoId",
                 table: "TabModuli",
+                column: "CorsoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TabPartecipanti_CorsoId",
+                table: "TabPartecipanti",
                 column: "CorsoId");
         }
 

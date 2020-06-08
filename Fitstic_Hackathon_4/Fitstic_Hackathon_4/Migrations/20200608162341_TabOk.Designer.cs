@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fitstic_Hackathon_4.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200608142922_AllTabelleOK")]
-    partial class AllTabelleOK
+    [Migration("20200608162341_TabOk")]
+    partial class TabOk
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -204,6 +204,9 @@ namespace Fitstic_Hackathon_4.Migrations
                     b.Property<string>("Cognome")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("CorsoId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("DataNascita")
                         .HasColumnType("TEXT");
 
@@ -225,7 +228,24 @@ namespace Fitstic_Hackathon_4.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CorsoId");
+
                     b.ToTable("TabPartecipanti");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 56,
+                            AnnoDiploma = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2000),
+                            Citta = "Brisighella",
+                            Cognome = " Bianchi",
+                            DataNascita = new DateTime(2000, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "eccomi@gmail.com",
+                            Indirizzo = "Via Larga, 45",
+                            Nome = "Aldo",
+                            Telefono = "15874",
+                            TipoDiploma = "Tecnico Elettronico"
+                        });
                 });
 
             modelBuilder.Entity("Fitstic_Hackathon_4.Data.Tutor", b =>
@@ -462,6 +482,13 @@ namespace Fitstic_Hackathon_4.Migrations
                         .HasForeignKey("CorsoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Partecipante", b =>
+                {
+                    b.HasOne("Fitstic_Hackathon_4.Data.Corso", null)
+                        .WithMany("ListaPartecipanti")
+                        .HasForeignKey("CorsoId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

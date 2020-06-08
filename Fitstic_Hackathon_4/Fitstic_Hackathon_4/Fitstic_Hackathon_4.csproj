@@ -12,6 +12,10 @@
     <Compile Remove="Migrations\20200606065638_CreateTab.Designer.cs" />
     <Compile Remove="Migrations\20200608142300_TabelleOK.cs" />
     <Compile Remove="Migrations\20200608142300_TabelleOK.Designer.cs" />
+    <Compile Remove="Migrations\20200608142922_AllTabelleOK.cs" />
+    <Compile Remove="Migrations\20200608142922_AllTabelleOK.Designer.cs" />
+    <Compile Remove="Migrations\20200608153150_TabCorsiOk.cs" />
+    <Compile Remove="Migrations\20200608153150_TabCorsiOk.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -22,9 +22,9 @@
                                     <th>#</th>
                                     <th>Nome Cognome</th>
                                     <th>Data Nascita</th>
-                                    <th>telefono</th>
+                                    <th>Telefono</th>
                                     <th>Email</th>
-                                    <th>Corso</th>
+                                    <th>TipoDiploma</th>
                                     <th>Edit</th>
                                 </tr>
                             </thead>
@@ -48,11 +48,10 @@
                                            @part.Email                                        
                                         </td>
                                         <td>
-                                            @part.
-
+                                            @part.TipoDiploma
                                         </td>
                                         <td>                                        
-                                            <a data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                            <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-partecipante"><i class="fas fa-pencil-alt"></i></a>
                                             <a data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
                                         </td>
                                     </tr>   
@@ -68,17 +67,14 @@
 
 
 @code{
-    
-    public Partecipante[] all_partecipanti;
-    
-        protected override async Task OnInitializedAsync()
-        {
-            all_partecipanti = await db.TabPartecipanti
-                                .FromSql( "SELECT ")
-                
-                
-                .ToArrayAsync();
-        }   
 
+    public Partecipante[] all_partecipanti;
+
+    protected override async Task OnInitializedAsync()
+    {
+        all_partecipanti = await db.TabPartecipanti
+            .OrderBy(x=>x.Cognome)
+            .ToArrayAsync();
+    }
 
 }
