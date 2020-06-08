@@ -2,12 +2,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace prova1.Data
+namespace Fitstic_Hackathon_4.Data
 {
     public class Partecipante
     {
-        [Key]
-        public int IdPart { get; set; }
+        
+        public int Id { get; set; }
         [Required]
         public string Nome { get; set; }
         public string Cognome { get; set; }
@@ -18,5 +18,10 @@ namespace prova1.Data
         public string Email { get; set; }                
         public string TipoDiploma { get; set; } //proposta: inserimento lista enum di titoli esistenti
         public DateTime AnnoDiploma { get; set; }
+
+        public Partecipante()
+        {
+
+        }
     }
 }

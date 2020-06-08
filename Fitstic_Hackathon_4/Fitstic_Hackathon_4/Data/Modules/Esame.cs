@@ -2,18 +2,21 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace prova1.Data
+namespace Fitstic_Hackathon_4.Data
 {
     public class Esame
-    {
-        [Key]
-        public int IdEsame { get; set; }
+    {        
+        public int Id { get; set; }
         public DateTime Data { get; set; }
         public int Punteggio { get; set; }
         [Required]
-        public int IdModulo { get; set; }
-        public int IdPartecipante { get; set; }
+        public int ModuloId { get; set; }
+        public int PartecipanteId { get; set; }
 
+        public Esame()
+        {
+
+        }
     }
 
 }

@@ -2,12 +2,11 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace prova1.Data
+namespace Fitstic_Hackathon_4.Data
 {
     public class Personale
-    {
-        [Key]
-        public int IdPers { get; set; }
+    {        
+        public int Id{ get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
@@ -17,7 +16,39 @@ namespace prova1.Data
         public DateTime DataAssunzione { get; set; }
         [Required]
         public int NumTelefono { get; set; }
-        public enum Tipo { Coordinatore, Docente, Tutor }
+                
+        public Personale()
+        {
+
+        }
     }
+
+    public class Docente : Personale
+    {
+
+        public Docente()
+        {
+
+        }
+    }
+
+    public class Organizzatore : Personale
+    {
+
+        public Organizzatore()
+        {
+
+        }
+    }
+
+    public class Tutor : Personale
+    {
+
+        public Tutor()
+        {
+
+        }
+    }
+
 
 }

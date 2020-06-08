@@ -1,3 +1,96 @@
-﻿@page "/personale"
+﻿@page "/operatori"
+@using Fitstic_Hackathon_4.Data;
+@using Microsoft.EntityFrameworkCore;
+@inject ApplicationDbContext db
 
 <h1> PERSONALE </h1>
+
+<br>
+<div class="col-md-12">
+    <div class="col-md-4">
+        <div class="portlet light profile-sidebar-portlet bordered">
+            <div class="profile-userpic">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-responsive" alt="">
+            </div>
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name"> Marcus Doe </div>
+                <div class="profile-usertitle-job"> Developer </div>
+            </div>
+            <div class="profile-userbuttons">
+                <button type="button" class="btn btn-info  btn-sm">Follow</button>
+                <button type="button" class="btn btn-info  btn-sm">Message</button>
+            </div>
+            <div class="profile-usermenu">
+                <ul class="nav">
+                    <li class="active">
+                        <a href="#">
+                            <i class="icon-home"></i> Ticket List
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-settings"></i> Support Staff
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-info"></i> Configurations
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                    <i class="icon-globe theme-font hide"></i>
+                    <span class="caption-subject font-blue-madison bold uppercase">Ticket List</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Column heading</th>
+                            <th>Column heading</th>
+                            <th>Column heading</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PROVA</td>
+                            <td>PROVA</td>
+                        </tr>
+                        <tr>
+                            <td>PROVA</td>
+                            <td>PROVA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+
+
+        @*
+        private Personale[] all_personale;
+
+        protected override async Task OnInitializedAsync()
+        {
+            all_personale = await db.TabOperatore
+                 .ToArrayAsync();
+        }
+
+            *@
+        
+    
+
+}
+
+}

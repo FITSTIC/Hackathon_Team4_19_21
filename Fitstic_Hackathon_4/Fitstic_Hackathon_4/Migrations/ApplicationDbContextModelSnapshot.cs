@@ -16,6 +16,247 @@ namespace Fitstic_Hackathon_4.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.4");
 
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Corso", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AnnoAccademico")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataFine")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataInizio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OrganizzatoreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Sede")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TabCorsi");
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Docente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cognome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataAssunzione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataNascita")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumTelefono")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TabDocenti");
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Esame", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModuloId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PartecipanteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Punteggio")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TabEsami");
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Iscrizione", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CorsoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataIscrizione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PartecipanteId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TabIscrizioni");
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Modulo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CorsoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataFine")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataInizio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DocenteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Materia")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TutorId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CorsoId");
+
+                    b.ToTable("TabModuli");
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Organizzatore", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cognome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataAssunzione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataNascita")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumTelefono")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TabOrganizzatori");
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Partecipante", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("AnnoDiploma")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Citta")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Cognome")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataNascita")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Indirizzo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoDiploma")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TabPartecipanti");
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Tutor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cognome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataAssunzione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataNascita")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumTelefono")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TabTutor");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -212,186 +453,13 @@ namespace Fitstic_Hackathon_4.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("prova1.Data.Corso", b =>
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Modulo", b =>
                 {
-                    b.Property<int>("IdCorso")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AnnoAccademico")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DataFine")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DataInizio")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("IdOrganizzatore")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Sede")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("IdCorso");
-
-                    b.ToTable("TabCorsi");
-                });
-
-            modelBuilder.Entity("prova1.Data.Esame", b =>
-                {
-                    b.Property<int>("IdEsame")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("IdModulo")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IdPartecipante")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Punteggio")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("IdEsame");
-
-                    b.ToTable("TabEsami");
-                });
-
-            modelBuilder.Entity("prova1.Data.Iscrizione", b =>
-                {
-                    b.Property<int>("IdIscrizione")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DataIscrizione")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("IdCorso")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IdPartecipante")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("IdIscrizione");
-
-                    b.ToTable("TabIscrizioni");
-                });
-
-            modelBuilder.Entity("prova1.Data.Modulo", b =>
-                {
-                    b.Property<int>("IdModulo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CorsoIdCorso")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DataFine")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DataInizio")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("IdCorso")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IdDocente")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IdTutor")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Materia")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("IdModulo");
-
-                    b.HasIndex("CorsoIdCorso");
-
-                    b.ToTable("TabModuli");
-                });
-
-            modelBuilder.Entity("prova1.Data.Partecipante", b =>
-                {
-                    b.Property<int>("IdPart")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("AnnoDiploma")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Citta")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Cognome")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DataNascita")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Indirizzo")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TipoDiploma")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("IdPart");
-
-                    b.ToTable("TabPartecipanti");
-                });
-
-            modelBuilder.Entity("prova1.Data.Personale", b =>
-                {
-                    b.Property<int>("IdPers")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Cognome")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DataAssunzione")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DataNascita")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("NumTelefono")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("IdPers");
-
-                    b.ToTable("TabOperatori");
+                    b.HasOne("Fitstic_Hackathon_4.Data.Corso", null)
+                        .WithMany("ListaModuli")
+                        .HasForeignKey("CorsoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -443,13 +511,6 @@ namespace Fitstic_Hackathon_4.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("prova1.Data.Modulo", b =>
-                {
-                    b.HasOne("prova1.Data.Corso", null)
-                        .WithMany("ListaModuli")
-                        .HasForeignKey("CorsoIdCorso");
                 });
 #pragma warning restore 612, 618
         }

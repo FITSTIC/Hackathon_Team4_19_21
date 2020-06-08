@@ -1,16 +1,17 @@
 ﻿@page "/"
+
     <AuthorizeView>
         <Authorized>
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+            
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-xl-3">
                         <div class="card bg-c-blue order-card">
                             <div class="card-block">
                                 <h3 class="m-b-20">CORSI</h3>
-                                <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
+                                <h2 class="text-right"><i class="fas fa-clone f-left"></i></h2>
                                 <!--class="m-b-0">Completed Orders<span class="f-right"></span></p> -->
-                                
+                                <a href="corsi" class="stretched-link" />
                             </div>
                         </div>
                     </div>
@@ -18,8 +19,8 @@
                     <div class="col-md-4 col-xl-3">
                         <div class="card bg-c-green order-card">
                             <div class="card-block">
-                                <h6 class="m-b-20">PARTECIPANTI</h6>
-                                <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>486</span></h2>
+                                <h3 class="m-b-20">PARTECIPANTI</h3>
+                                <h2 class="text-right"><i class="fa fa-users f-left"></i></h2>
                                 <!--<p class="m-b-0">Completed Orders<span class="f-right"></span></p>-->
                                 <a href="partecipanti" class="stretched-link"/>
                             </div>
@@ -29,8 +30,8 @@
                     <div class="col-md-4 col-xl-3">
                         <div class="card bg-c-yellow order-card">
                             <div class="card-block">
-                                <h6 class="m-b-20">PERSONALE</h6>
-                                <h2 class="text-right"><i class="fa fa-refresh f-left"></i></h2>
+                                <h3 class="m-b-20">PERSONALE</h3>
+                                <h2 class="text-right"><i class="fas fa-user-tie f-left"></i></h2>
                                 <!--<p class="m-b-0">Completed Orders<span class="f-right"></span></p> -->
                                 <a href="personale" class="stretched-link" />
                             </div>
@@ -40,9 +41,10 @@
                     <div class="col-md-4 col-xl-3">
                         <div class="card bg-c-pink order-card">
                             <div class="card-block">
-                                <h5 class="m-b-20">MODULI</h5>
-                                <h2 class="text-right"><i class="fa fa-credit-card f-left"></i></h2>
+                                <h3 class="m-b-20">MODULI</h3>
+                                <h2 class="text-right"><i class="fas fa-chalkboard-teacher f-left"></i></h2>
                                 <!--<p class="m-b-0">Completed Orders<span class="f-right">351</span></p>-->
+                                <a href="all-moduli" class="stretched-link" />
                             </div>
                         </div>
                     </div>

@@ -2,17 +2,20 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace prova1.Data
+namespace Fitstic_Hackathon_4.Data
 {
     public class Iscrizione
-    {
-        [Key]
-        public int IdIscrizione { get; set; }
+    {        
+        public int Id { get; set; }
         [Required]
         public DateTime DataIscrizione { get; set; }        
-        public int IdCorso { get; set; }        
-        public int IdPartecipante { get; set; }
+        public int CorsoId { get; set; }        
+        public int PartecipanteId{ get; set; }
 
+        public Iscrizione()
+        {
+
+        }
     }
         
 } 

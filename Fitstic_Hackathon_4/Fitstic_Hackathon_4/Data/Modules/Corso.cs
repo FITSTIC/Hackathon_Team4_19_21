@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace prova1.Data
+namespace Fitstic_Hackathon_4.Data
 {
     public class Corso
-    {
-        [Key]
-        public int IdCorso { get; set; }
+    {        
+        public int Id { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
@@ -16,7 +15,12 @@ namespace prova1.Data
         public DateTime DataInizio { get; set; }
         public DateTime DataFine { get; set; }
         public string Sede { get; set; }
-        public int IdOrganizzatore { get; set; }
+        public int OrganizzatoreId { get; set; }
         public List<Modulo> ListaModuli { get; set; }
+
+        public Corso()
+        {
+
+        }
     }
 }

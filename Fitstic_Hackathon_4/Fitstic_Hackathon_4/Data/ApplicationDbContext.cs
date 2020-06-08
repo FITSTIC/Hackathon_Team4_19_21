@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using prova1.Data;
 
 namespace Fitstic_Hackathon_4.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        public DbSet<Personale> TabOperatori { get; set; }
+        public DbSet<Docente> TabDocenti { get; set; }
+        public DbSet<Organizzatore> TabOrganizzatori { get; set; }
+        public DbSet<Tutor> TabTutor { get; set; }
         public DbSet<Modulo> TabModuli { get; set; }
         public DbSet<Partecipante> TabPartecipanti { get; set; }
         public DbSet<Esame> TabEsami { get; set; }
