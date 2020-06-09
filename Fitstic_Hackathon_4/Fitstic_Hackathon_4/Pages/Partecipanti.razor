@@ -51,8 +51,8 @@
                                             @part.TipoDiploma
                                         </td>
                                         <td>                                        
-                                            <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-partecipante"><i class="fas fa-pencil-alt"></i></a>
-                                            <a data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
+                                            <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-partecipante/@part.Id"><i class="fas fa-pencil-alt"></i></a>
+                                            <a data-toggle="tooltip" title="" data-original-title="Delete" @onclick="()=>EliminaRecord(part)"><i class="far fa-trash-alt"></i></a>
                                         </td>
                                     </tr>   
                                 }
@@ -70,10 +70,20 @@
 
     public Partecipante[] all_partecipanti;
 
+
+    private async void  EliminaRecord(Partecipante selected_partecipant)
+    {
+        db.TabPartecipanti.Remove(selected_partecipant);
+        db.SaveChanges();
+        await OnInitializedAsync();
+        StateHasChanged();
+    }
+
+
     protected override async Task OnInitializedAsync()
     {
         all_partecipanti = await db.TabPartecipanti
-            .OrderBy(x=>x.Cognome)
+            .OrderBy(x => x.Cognome)
             .ToArrayAsync();
     }
 
