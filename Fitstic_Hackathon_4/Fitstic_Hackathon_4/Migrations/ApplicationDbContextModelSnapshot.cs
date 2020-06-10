@@ -185,6 +185,18 @@ namespace Fitstic_Hackathon_4.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TabOrganizzatori");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            Cognome = "Cadrega",
+                            DataAssunzione = new DateTime(2020, 6, 10, 11, 35, 27, 162, DateTimeKind.Local).AddTicks(665),
+                            DataNascita = new DateTime(1996, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "caddy@gmail.com",
+                            Nome = "Mario",
+                            NumTelefono = 33516523
+                        });
                 });
 
             modelBuilder.Entity("Fitstic_Hackathon_4.Data.Partecipante", b =>
@@ -233,16 +245,16 @@ namespace Fitstic_Hackathon_4.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 56,
-                            AnnoDiploma = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2000),
+                            Id = 3,
+                            AnnoDiploma = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(1994),
                             Citta = "Brisighella",
                             Cognome = " Bianchi",
-                            DataNascita = new DateTime(2000, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "eccomi@gmail.com",
-                            Indirizzo = "Via Larga, 45",
-                            Nome = "Aldo",
-                            Telefono = "15874",
-                            TipoDiploma = "Tecnico Elettronico"
+                            DataNascita = new DateTime(1974, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "ecco@gmail.com",
+                            Indirizzo = "Via Stretta, 48",
+                            Nome = "Gisella",
+                            Telefono = "3289632147",
+                            TipoDiploma = "Liceo Scientifico"
                         });
                 });
 
@@ -275,6 +287,18 @@ namespace Fitstic_Hackathon_4.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TabTutor");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            Cognome = "Fillonari",
+                            DataAssunzione = new DateTime(2020, 6, 10, 11, 35, 27, 156, DateTimeKind.Local).AddTicks(8064),
+                            DataNascita = new DateTime(1984, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "sonoio@gmail.com",
+                            Nome = "Mario",
+                            NumTelefono = 123456
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

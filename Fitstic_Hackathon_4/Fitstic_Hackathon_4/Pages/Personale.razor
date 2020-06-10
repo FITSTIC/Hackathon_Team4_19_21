@@ -13,95 +13,136 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
 
 <a class="button btn btn-primary btn-lg" href="form-personale"> NUOVO </a>
+<br />
+<br />
 
 <div class="container">
-        <div id="accordion">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h4 class="card-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                <i class="glyphicon glyphicon-search text-gold"></i>
-                                <b>DOCENTI</b>
-                            </a>
-                        </h4>
-                    </div>
-                </div>
-                <div id="collapse1" class="collapse show">
-                    <div class="col-12 col-sm-12 col-md-12">
-                        <div class="card-body">
-                            <div class="row">
-                                <!--TABELLA DOCENTI INIZIO-->
-                                <!--TABELLA DOCENTI INIZIO-->
-                                <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
-                                    <table class="table table-striped">
-                                        <thead>
+    <div id="accordion">
+        <div class="card card-default">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseDocenti">
+                        <i class="glyphicon glyphicon-search text-gold"></i>
+                        <b>DOCENTI</b>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseDocenti" class="collapse show">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <div class="card-body">
+                        <div class="row">
+                            <!--TABELLA DOCENTI INIZIO-->
+                            <!--TABELLA DOCENTI INIZIO-->
+                            <div class="table-responsive" id="tabDoc" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nome Cognome</th>
+                                            <th>Data Assunzione</th>
+                                            <th>Telefono</th>
+                                            <!--INFO MODULI*-->
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var doc in all_docenti)
+                                        {
                                             <tr>
-                                                <th>#</th>
-                                                <th>Nome Cognome</th>
-                                                <th>Data Assunzione</th>
-                                                <th>Telefono</th>
-                                                <!--INFO MODULI*-->
-                                                <th>Edit</th>
+                                                <td id="idDocente">
+                                                    @doc.Id
+                                                </td>
+                                                <td id="nomeDocente">
+                                                   <b> @doc.Nome  @doc.Cognome </b>
+                                                </td>
+                                                <td id="dataAssDoc">
+                                                    @doc.DataAssunzione.ToShortDateString()
+                                                </td>
+                                                <td id="telDoce">
+                                                    @doc.NumTelefono
+                                                </td>
+                                                <td>
+                                                    <a data-toggle="tooltip" title="" data-original-title="Edit" ><i class="fas fa-pencil-alt"></i></a>
+                                                    <a data-toggle="tooltip" title="" data-original-title="Delete" ><i class="far fa-trash-alt"></i></a>
+                                                </td>
+                                                
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var doc in all_docenti)
-                                            {
-                                                <tr>
-                                                    <td id="idDocente">
-                                                        @doc.Id
-                                                    </td>
-                                                    <td id="nomeDocente">
-                                                        @doc.Nome  @doc.Cognome
-                                                    </td>
-                                                    <td id="dataAssDoc">
-                                                        @doc.DataAssunzione.ToShortDateString()
-                                                    </td>
-                                                    <td id="telDoce">
-                                                        @doc.NumTelefono
-                                                    </td>
-                                                    <!--INFO MODULI*-->
-                                                    <td>
-                                                        <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-docecipante"><i class="fas fa-pencil-alt"></i></a>
-                                                        <a data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
-                                                    </td>
-                                                </tr>
 
-                                            }
+                                        }
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <!--TABELLA DOCENTI FINE-->
-                    <!--TABELLA DOCENTI FINE-->
-
                 </div>
+                <!--TABELLA DOCENTI FINE-->
+                <!--TABELLA DOCENTI FINE-->
+
+            </div>
+        </div>
+
+
+        <div class="card card-default">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        <i class="glyphicon glyphicon-lock text-gold"></i>
+                        <b>ORGANIZZATORI</b>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse2" class="collapse show">
+                <div class="card-body">
+                    <div class="row">
+                        <!--TABELLA ORGANIZZATORI-->
+                        <!--TABELLA ORGANIZZATORI-->
+                        <div class="table-responsive" id="tableOrg" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nome Cognome</th>
+                                        <th>Data Assunzione</th>
+                                        <th>Telefono</th>
+                                        <!--INFO MODULI*-->
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var org in all_organizzatori)
+                                    {
+                                        <tr>
+                                            <td id="idDocente">
+                                                @org.Id
+                                            </td>
+                                            <td id="nomeDocente">
+                                                <b> @org.Nome  @org.Cognome </b>
+                                            </td>
+                                            <td id="dataAssDoc">
+                                                @org.DataAssunzione.ToShortDateString()
+                                            </td>
+                                            <td id="telDoce">
+                                                @org.NumTelefono
+                                            </td>
+                                            <td>
+                                                <a data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                <a data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
+                                            </td>
+
+                                        </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>                        
                     </div>
                 </div>
-
-                <div class="card card-default">
-                <div class="card-header">
-                    <h4 class="card-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                            <i class="glyphicon glyphicon-lock text-gold"></i>
-                            <b>ORGANIZZATORI</b>
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapse2" class="collapse show">
-                    <div class="card-body">
-                        <div class="row">
-                            <!--TABELLA ORGANIZZATORI-->
-                            <!--TABELLA ORGANIZZATORI-->
-                            <!--TABELLA ORGANIZZATORI-->
-                            <!--TABELLA ORGANIZZATORI-->
-                        </div>
-                    </div>
-                </div>
-            </div>          
+            </div>
+        </div>
+    </div>
+   </div>
 
 @code{
 
@@ -122,7 +163,6 @@
         all_tutor = await db.TabTutor
             .OrderBy(k => k.Cognome)
             .ToArrayAsync();
-
 
 
 

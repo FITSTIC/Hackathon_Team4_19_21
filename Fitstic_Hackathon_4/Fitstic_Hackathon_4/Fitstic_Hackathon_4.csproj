@@ -16,6 +16,16 @@
     <Compile Remove="Migrations\20200608142922_AllTabelleOK.Designer.cs" />
     <Compile Remove="Migrations\20200608153150_TabCorsiOk.cs" />
     <Compile Remove="Migrations\20200608153150_TabCorsiOk.Designer.cs" />
+    <Compile Remove="Migrations\20200609142354_InsDoc.cs" />
+    <Compile Remove="Migrations\20200609142354_InsDoc.Designer.cs" />
+    <Compile Remove="Migrations\20200609142722_DocProva.cs" />
+    <Compile Remove="Migrations\20200609142722_DocProva.Designer.cs" />
+    <Compile Remove="Migrations\20200610090902_DbReloading.cs" />
+    <Compile Remove="Migrations\20200610090902_DbReloading.Designer.cs" />
+    <Compile Remove="Migrations\20200610092746_NewMig_HasData.cs" />
+    <Compile Remove="Migrations\20200610092746_NewMig_HasData.Designer.cs" />
+    <Compile Remove="Migrations\20200610093221_NewMig_HasData2.cs" />
+    <Compile Remove="Migrations\20200610093221_NewMig_HasData2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

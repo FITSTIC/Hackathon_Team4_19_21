@@ -25,44 +25,49 @@ namespace Fitstic_Hackathon_4.Data
         {
             base.OnModelCreating(builder);
 
-        //    builder.Entity<Personale>().HasData(
-        //        new Personale
-        //        {
-        //            IdPers = 1,
-        //            Nome = "Mario",
-        //            Cognome = "Verdi",
-        //            NumTelefono = 123456,
-        //            Email = "sonobello@gmail.com",
-        //            DataAssunzione = DateTime.Now,
-        //            DataNascita = new DateTime(1980, 10, 5)
+            builder.Entity<Tutor>().HasData(
+                new Tutor
+                {   
+                    Id = 2,
+                    Nome = "Mario",
+                    Cognome = "Fillonari",
+                    NumTelefono = 123456,
+                    Email = "sonoio@gmail.com",
+                    DataAssunzione = DateTime.Now,
+                    DataNascita = new DateTime(1984, 12, 07)
 
 
-        //        });
+                });
 
-        //    builder.Entity<Esame>().HasData(
-        //       new Esame
-        //       {
-        //           IdEsame = 50,
-        //           Data = new DateTime(2020, 06, 25),
-        //           IdModulo = 7,
-        //           IdPartecipante = 56,
-        //           Punteggio = 2
+            builder.Entity<Organizzatore>().HasData(
+                new Organizzatore
+                {
+                    Id = 3,
+                    Nome = "Mario",
+                    Cognome = "Cadrega",
+                    NumTelefono = 33516523,
+                    Email = "caddy@gmail.com",
+                    DataAssunzione = DateTime.Now,
+                    DataNascita = new DateTime(1996, 04, 18)
 
-        //       });
 
-        builder.Entity<Partecipante>().HasData(
+                });
+
+
+
+            builder.Entity<Partecipante>().HasData(
                new Partecipante
                {
-                   Id = 56,
-                   DataNascita = new DateTime(2000, 05, 25),
+                   Id = 3,
+                   DataNascita = new DateTime(1974, 06, 15),
                    Citta = "Brisighella",
-                   Nome = "Aldo",
+                   Nome = "Gisella",
                    Cognome = " Bianchi",
-                   Email = "eccomi@gmail.com",
-                   Telefono = "15874",
-                   AnnoDiploma = new DateTime(2000),
-                   TipoDiploma = "Tecnico Elettronico",
-                   Indirizzo = "Via Larga, 45"
+                   Email = "ecco@gmail.com",
+                   Telefono = "3289632147",
+                   AnnoDiploma = new DateTime(1994),
+                   TipoDiploma = "Liceo Scientifico",
+                   Indirizzo = "Via Stretta, 48"
 
                });
 

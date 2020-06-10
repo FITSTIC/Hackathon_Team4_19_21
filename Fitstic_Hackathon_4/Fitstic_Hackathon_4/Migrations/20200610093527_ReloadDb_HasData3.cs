@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Fitstic_Hackathon_4.Migrations
 {
-    public partial class TabOk : Migration
+    public partial class ReloadDb_HasData3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -309,9 +309,19 @@ namespace Fitstic_Hackathon_4.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "TabOrganizzatori",
+                columns: new[] { "Id", "Cognome", "DataAssunzione", "DataNascita", "Email", "Nome", "NumTelefono" },
+                values: new object[] { 3, "Cadrega", new DateTime(2020, 6, 10, 11, 35, 27, 162, DateTimeKind.Local).AddTicks(665), new DateTime(1996, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "caddy@gmail.com", "Mario", 33516523 });
+
+            migrationBuilder.InsertData(
                 table: "TabPartecipanti",
                 columns: new[] { "Id", "AnnoDiploma", "Citta", "Cognome", "CorsoId", "DataNascita", "Email", "Indirizzo", "Nome", "Telefono", "TipoDiploma" },
-                values: new object[] { 56, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2000), "Brisighella", " Bianchi", null, new DateTime(2000, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "eccomi@gmail.com", "Via Larga, 45", "Aldo", "15874", "Tecnico Elettronico" });
+                values: new object[] { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(1994), "Brisighella", " Bianchi", null, new DateTime(1974, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "ecco@gmail.com", "Via Stretta, 48", "Gisella", "3289632147", "Liceo Scientifico" });
+
+            migrationBuilder.InsertData(
+                table: "TabTutor",
+                columns: new[] { "Id", "Cognome", "DataAssunzione", "DataNascita", "Email", "Nome", "NumTelefono" },
+                values: new object[] { 2, "Fillonari", new DateTime(2020, 6, 10, 11, 35, 27, 156, DateTimeKind.Local).AddTicks(8064), new DateTime(1984, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "sonoio@gmail.com", "Mario", 123456 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

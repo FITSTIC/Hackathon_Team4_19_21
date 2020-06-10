@@ -17,20 +17,21 @@
 <!--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 -->
-<EditForm Model="p" OnSubmit="()=>SalvaPartecipante()" >
+<EditForm Model="par" OnSubmit="()=>SalvaPartecipante()">
+    <DataAnnotationsValidator />
     <div class="container">
         <div id="accordion">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="text-center">  
-                            @if (Id == 0)
-                            {
-                                <h3>Inserimento NUOVO PARTECIPANTE</h3>
-                            }
-                            else
-                            {
-                                <h3>Modifica PARTECIPANTE</h3>
-                            }
+                    <div class="text-center">
+                        @if (Id == 0)
+                        {
+                            <h3>Inserimento NUOVO PARTECIPANTE</h3>
+                        }
+                        else
+                        {
+                            <h3>Modifica PARTECIPANTE</h3>
+                        }
                     </div>
                 </div>
             </div>
@@ -51,13 +52,13 @@
                                 <div class="form-group">
                                     <label class="control-label">NOME</label>
                                     <!--Campo x modifica dato o disponibile per nuovo inserimento-->
-                                    <input type="text" class="form-control" id="inputNomePart" @bind-value="p.Nome" />
+                                    <input type="text" class="form-control" id="inputNomePart" @bind-value="par.Nome" />
                                 </div>
                             </div>
                             <div class="col-md-1 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">COGNOME</label>
-                                    <input type="text" class="form-control" id="inputCognomePart" @bind-value="p.Cognome" />
+                                    <input type="text" class="form-control" id="inputCognomePart" @bind-value="par.Cognome" />
                                 </div>
                             </div>
                             <!--
@@ -73,7 +74,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Data di nascita</label>
                                     <div class="input-group date">
-                                        <input class="form-control" type="date" @bind-value="p.DataNascita" />
+                                        <input class="form-control" type="date" @bind-value="par.DataNascita" />
                                         <span class="input-group-append">
                                             <button class="btn btn-outline-secondary" type="button">
                                                 <i class="fa fa-calendar"></i>
@@ -88,20 +89,20 @@
                             <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">EMAIL</label>
-                                    <input type="email" class="form-control" id="inputEmailPart" @bind-value="p.Email" />
+                                    <input type="email" class="form-control" id="inputEmailPart" @bind-value="par.Email" />
                                 </div>
                             </div>
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">TELEFONO</label>
-                                    <input type="tel" class="form-control" id="inputTelPart" @bind-value="p.Telefono" />
+                                    <input type="tel" class="form-control" id="inputTelPart" @bind-value="par.Telefono" />
                                 </div>
                             </div>
 
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">CITTÀ</label>
-                                    <input type="text" class="form-control" id="inputCittaPart" @bind-value="p.Citta" />
+                                    <input type="text" class="form-control" id="inputCittaPart" @bind-value="par.Citta" />
                                 </div>
                             </div>
 
@@ -127,13 +128,13 @@
                             <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">TIPO DIPLOMA</label>
-                                    <input type="text" class="form-control" id="inputTipoDiplo" @bind-value="p.TipoDiploma" />
+                                    <input type="text" class="form-control" id="inputTipoDiplo" @bind-value="par.TipoDiploma" />
                                 </div>
                             </div>
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">DATA DIPLOMA</label>
-                                    <input type="date" class="form-control" id="inputDataDiplo" @bind-value="p.AnnoDiploma" />
+                                    <input type="date" class="form-control" id="inputDataDiplo" @bind-value="par.AnnoDiploma" />
                                 </div>
                             </div>
                         </div>
@@ -181,20 +182,19 @@
     [Parameter]
     public int Id { get; set; }
 
-    private Partecipante p = new Partecipante();
-
+    private Partecipante par = new Partecipante();
 
 
     protected override async Task OnInitializedAsync()
     {
         if(Id==0)
         {
-            p = new Partecipante();
+            par = new Partecipante();
 
         }
         else
         {
-            p = await db.TabPartecipanti.FindAsync(Id);
+            par = await db.TabPartecipanti.FindAsync(Id);
         }
     }
 
@@ -203,7 +203,7 @@
         if (Id == 0)
         {
             //inserimento nuovo record
-            db.TabPartecipanti.Add(p);
+            db.TabPartecipanti.Add(par);
         }
         else
         {
