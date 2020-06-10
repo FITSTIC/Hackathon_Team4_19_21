@@ -21,13 +21,14 @@
         <div class="card card-default">
             <div class="card-header">
                 <h4 class="card-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseDocenti">
+                    <a data-toggle="collapse" data-parent="#accordion" @onclick="e => this.Collapsed = !this.Collapsed">
+            @( this.Collapsed ?)>
                         <i class="glyphicon glyphicon-search text-gold"></i>
                         <b>DOCENTI</b>
                     </a>
                 </h4>
             </div>
-            <div id="collapseDocenti" class="collapse show">
+            <div id="collapseDocenti" class="@(Collapsed? "collapse": "" )">
                 <div class="col-12 col-sm-12 col-md-12">
                     <div class="card-body">
                         <div class="row">
@@ -145,6 +146,9 @@
    </div>
 
 @code{
+
+    [Parameter]
+    public bool Collapsed { get; set; } = true;
 
     private Organizzatore[] all_organizzatori;
     private Docente[] all_docenti;
