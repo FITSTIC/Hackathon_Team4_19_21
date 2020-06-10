@@ -37,10 +37,10 @@
             </div>
 
             <label>Tipo di inserimento</label>
-            <select class="form-control" id="selTipoIns">
-                <option value="1">ORGANIZZATORE</option>
-                <option value="2">DOCENTE</option>
-                <option value="3">TUTOR</option>
+            <select class="form-control @Valore" id="selTipoIns">
+                <option Valore="1">ORGANIZZATORE</option>
+                <option Valore="2">DOCENTE</option>
+                <option Valore="3">TUTOR</option>
             </select>
 
             <br />
@@ -61,20 +61,20 @@
                                 <div class="form-group">
                                     <label class="control-label">NOME</label>
                                     <!--Campo x modifica dato o disponibile per nuovo inserimento-->
-                                    <input type="text" class="form-control" id="inputNomePart" />
+                                    <input type="text" class="form-control" id="inputNomePart" @bind-value="pers.Nome" />
                                 </div>
                             </div>
                             <div class="col-md-1 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">COGNOME</label>
-                                    <InputText type="text" class="form-control" id="inputCognomePers" />
+                                    <input type="text" class="form-control" id="inputCognomePers" @bind-value="pers.Cognome"/>
                                 </div>
                             </div>
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">DATA DI NASCITA</label>
                                     <div class="input-group date">
-                                        <input class="form-control" type="date" />
+                                        <input type="date" class="form-control" @bind-value="pers.DataNascita"/>
                                         <span class="input-group-append">
                                             <button class="btn btn-outline-secondary" type="button">
                                                 <i class="fa fa-calendar"></i>
@@ -89,20 +89,20 @@
                             <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">EMAIL</label>
-                                    <input type="email" class="form-control" id="inputEmailPart" />
+                                    <input type="email" class="form-control" id="inputEmailPart" @bind-value="pers.Email" />
                                 </div>
                             </div>
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">TELEFONO</label>
-                                    <input type="tel" class="form-control" id="inputTelPart" />
+                                    <input type="tel" class="form-control" id="inputTelPart" @bind-value="pers.NumTelefono" />
                                 </div>
                             </div>
 
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
-                                    <label class="control-label">CITTÀ</label>
-                                    <InputText type="text" class="form-control" id="inputCittaPart" />
+                                    <label class="control-label">DATA ASSUNZIONE</label>
+                                    <input type="date" class="form-control" id="inputDatAssPers" @bind-value="pers.DataAssunzione" />
                                 </div>
                             </div>
 
@@ -114,22 +114,7 @@
                                 </div>
                             </div>
                             -->
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label">TIPO DIPLOMA</label>
-                                    <InputNumber TValue="Int16" class="form-control" id="inputTipoDiplo" />
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-lg-3">
-                                <div class="form-group">
-                                    <label class="control-label">DATA DIPLOMA</label>
-                                    <InputNumber TValue="Int16" class="form-control" id="inputDataDiplo" />
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -173,22 +158,24 @@
 
     [Parameter]
     public int Id { get; set; }
+    [Parameter]
+    public int Valore { get; set; }
 
-    
-    public Docente pers = new Docente();
+    public Personale pers = new Personale();
 
 
     protected override async Task OnInitializedAsync()
     {
         if (Id == 0)
         {
-            
-
+            pers = new Personale();
         }
         else
         {
-            
+            //trova tabella del record e stampa dati nel form
         }
+
+        
     }
 
     private async void SalvaPersonale()
@@ -196,18 +183,33 @@
         if (Id == 0)
         {
             //inserimento nuovo record
-            
+            if (Valore == 1)
+            {
+                Organizzatore new_org = (Organizzatore)pers;
+                db.TabOrganizzatori.Add(new_org);
+            }
+            else if (Valore == 2)
+            {
+                Docente new_doc = (Docente)pers;
+                db.TabDocenti.Add(new_doc);
+            }
+            else if (Valore == 3)
+            {
+                Tutor new_tutor = (Tutor)pers;
+                db.TabTutor.Add(new_tutor);
+            }
+
         }
         else
         {
             //aggiornamento dati di un record esistente
-            
+            await db.SaveChangesAsync();
         }
 
 
         await db.SaveChangesAsync();
 
-        NavigationManager.NavigateTo("/partecipanti");
+        NavigationManager.NavigateTo("/operatori");
 
     }
 

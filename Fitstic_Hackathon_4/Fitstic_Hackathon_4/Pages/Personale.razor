@@ -21,14 +21,14 @@
         <div class="card card-default">
             <div class="card-header">
                 <h4 class="card-title">
-                    <a data-toggle="collapse" data-parent="#accordion" @onclick="e => this.Collapsed = !this.Collapsed">
-            @( this.Collapsed ?)>
+                    <a data-toggle="collapse" data-parent="#accordion" @onclick="e => this.Collapsed1 = !this.Collapsed1 ">
+                        @( this.Collapsed1 ? "" : "" )
                         <i class="glyphicon glyphicon-search text-gold"></i>
                         <b>DOCENTI</b>
                     </a>
                 </h4>
             </div>
-            <div id="collapseDocenti" class="@(Collapsed? "collapse": "" )">
+            <div id="collapseDocenti" class="@(Collapsed1? "collapse": "" )">
                 <div class="col-12 col-sm-12 col-md-12">
                     <div class="card-body">
                         <div class="row">
@@ -54,7 +54,7 @@
                                                     @doc.Id
                                                 </td>
                                                 <td id="nomeDocente">
-                                                   <b> @doc.Nome  @doc.Cognome </b>
+                                                    <b> @doc.Nome  @doc.Cognome </b>
                                                 </td>
                                                 <td id="dataAssDoc">
                                                     @doc.DataAssunzione.ToShortDateString()
@@ -63,10 +63,10 @@
                                                     @doc.NumTelefono
                                                 </td>
                                                 <td>
-                                                    <a data-toggle="tooltip" title="" data-original-title="Edit" ><i class="fas fa-pencil-alt"></i></a>
-                                                    <a data-toggle="tooltip" title="" data-original-title="Delete" ><i class="far fa-trash-alt"></i></a>
+                                                    <a data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                    <a data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
                                                 </td>
-                                                
+
                                             </tr>
 
                                         }
@@ -83,17 +83,20 @@
             </div>
         </div>
 
+        <!--CARD ORGANIZZATORI-->
+        <!--CARD ORGANIZZATORI-->
 
         <div class="card card-default">
             <div class="card-header">
                 <h4 class="card-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                    <a data-toggle="collapse" data-parent="#accordion" @onclick="e => this.Collapsed2 = !this.Collapsed2 ">
+                        @( this.Collapsed2 ? "" : "" )>
                         <i class="glyphicon glyphicon-lock text-gold"></i>
                         <b>ORGANIZZATORI</b>
                     </a>
                 </h4>
             </div>
-            <div id="collapse2" class="collapse show">
+            <div id="collapseOrg" class="@(Collapsed2? "collapse": "" )">
                 <div class="card-body">
                     <div class="row">
                         <!--TABELLA ORGANIZZATORI-->
@@ -137,18 +140,84 @@
 
                                 </tbody>
                             </table>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!--CARD TUTOR-->
+        <!--CARD TUTOR-->
+
+        <div class="card card-default">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <a data-toggle="collapse" data-parent="#accordion" @onclick="e => this.Collapsed3 = !this.Collapsed3 ">
+                        @( this.Collapsed3 ? "" : "" )>
+                        <i class="glyphicon glyphicon-lock text-gold"></i>
+                        <b>ORGANIZZATORI</b>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTutor" class="@(Collapsed3? "collapse": "" )">
+                <div class="card-body">
+                    <div class="row">
+                        <!--TABELLA TUTOR-->
+                        <!--TABELLA TUTOR-->
+                        <div class="table-responsive" id="tableTutor" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nome Cognome</th>
+                                        <th>Data Assunzione</th>
+                                        <th>Telefono</th>
+                                        <!--INFO MODULI*-->
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var tutor in all_tutor)
+                                    {
+                                        <tr>
+                                            <td id="idDocente">
+                                                @tutor.Id
+                                            </td>
+                                            <td id="nomeDocente">
+                                                <b> @tutor.Nome  @tutor.Cognome </b>
+                                            </td>
+                                            <td id="dataAssDoc">
+                                                @tutor.DataAssunzione.ToShortDateString()
+                                            </td>
+                                            <td id="telDoce">
+                                                @tutor.NumTelefono
+                                            </td>
+                                            <td>
+                                                <a data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                <a data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
+                                            </td>
+
+                                        </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
    </div>
 
 @code{
 
     [Parameter]
-    public bool Collapsed { get; set; } = true;
+    public bool Collapsed1 { get; set; } = true;
+    public bool Collapsed2 { get; set; } = true;
+    public bool Collapsed3 { get; set; } = true;
 
     private Organizzatore[] all_organizzatori;
     private Docente[] all_docenti;
