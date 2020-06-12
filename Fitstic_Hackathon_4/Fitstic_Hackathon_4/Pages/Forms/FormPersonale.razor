@@ -197,16 +197,43 @@
             //inserimento nuovo record
             if (tipo == TipoPersonale.Organizzatore)
             {
-                db.TabOrganizzatori.Add((Organizzatore)pers);
+                Organizzatore org = new Organizzatore();
+                org.Id = pers.Id;
+                org.Nome = pers.Nome;
+                org.Cognome = pers.Cognome;
+                org.Email = pers.Email;
+                org.DataNascita = pers.DataNascita;
+                org.DataAssunzione = pers.DataAssunzione;
+                org.NumTelefono = pers.NumTelefono;
+
+                db.TabOrganizzatori.Add(org);
             }
             else if (tipo == TipoPersonale.Docente)
             {
-                db.TabDocenti.Add((Docente)pers);
+                Docente doc = new Docente();
+                doc.Id = pers.Id;
+                doc.Nome = pers.Nome;
+                doc.Cognome = pers.Cognome;
+                doc.Email = pers.Email;
+                doc.DataNascita = pers.DataNascita;
+                doc.DataAssunzione = pers.DataAssunzione;
+                doc.NumTelefono = pers.NumTelefono;
+
+                db.TabDocenti.Add(doc);
 
             }
             else if (tipo == TipoPersonale.Tutor)
             {
-                db.TabTutor.Add((Tutor)pers);
+                Tutor tut = new Tutor();
+                tut.Id = pers.Id;
+                tut.Nome = pers.Nome;
+                tut.Cognome = pers.Cognome;
+                tut.Email = pers.Email;
+                tut.DataNascita = pers.DataNascita;
+                tut.DataAssunzione = pers.DataAssunzione;
+                tut.NumTelefono = pers.NumTelefono;
+
+                db.TabTutor.Add(tut);
             }
 
 

@@ -36,7 +36,6 @@ namespace Fitstic_Hackathon_4.Data
                     DataAssunzione = DateTime.Now,
                     DataNascita = new DateTime(1984, 12, 07)
 
-
                 });
 
             builder.Entity<Organizzatore>().HasData(
@@ -49,7 +48,6 @@ namespace Fitstic_Hackathon_4.Data
                     Email = "caddy@gmail.com",
                     DataAssunzione = DateTime.Now,
                     DataNascita = new DateTime(1996, 04, 18)
-
 
                 });
 

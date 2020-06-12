@@ -16,55 +16,24 @@ namespace Fitstic_Hackathon_4.Data
         public DateTime DataAssunzione { get; set; }
         [Required]
         public int NumTelefono { get; set; }
-                
-        public Personale()
+        public Personale() 
         {
-
         }
     }
 
     public class Docente : Personale
     {
-
-        public Docente(Personale person)
-        {
-            Nome = person.Nome;
-            Cognome = person.Cognome;
-            Email = person.Email;
-            NumTelefono = person.NumTelefono;
-            DataNascita = person.DataNascita;
-            DataAssunzione = person.DataAssunzione;
-            
-        }
     }
 
     public class Organizzatore : Personale
     {
-
-        public Organizzatore( Personale person)
+        public Organizzatore()
         {
-            Nome = person.Nome;
-            Cognome = person.Cognome;
-            Email = person.Email;
-            NumTelefono = person.NumTelefono;
-            DataNascita = person.DataNascita;
-            DataAssunzione = person.DataAssunzione;
-
         }
     }
 
     public class Tutor : Personale
     {
-
-        public Tutor(Personale person)
-        {
-            Nome = person.Nome;
-            Cognome = person.Cognome;
-            Email = person.Email;
-            NumTelefono = person.NumTelefono;
-            DataNascita = person.DataNascita;
-            DataAssunzione = person.DataAssunzione;
-        }
     }
 
 
