@@ -1,5 +1,5 @@
 ﻿@page "/form-personale"
-@page "/form-personale/{id:int}"
+@page "/form-personale/{id:int}/{cosa}"
 @using Fitstic_Hackathon_4.Data
 @using Microsoft.EntityFrameworkCore
 @inject ApplicationDbContext db
@@ -163,7 +163,7 @@
     [Parameter]
     public int Id { get; set; }
     [Parameter]
-    public int Valore { get; set; }
+    public string cosa { get; set; }
 
     public Personale pers = new Personale();
     public enum TipoPersonale
@@ -183,8 +183,19 @@
         }
         else
         {
-            //trova tabella del record e stampa dati nel form
-
+            if (cosa == "docente")
+            {
+                pers = await db.TabDocenti.FindAsync(Id);
+            }
+            else if (cosa == "organizzatore")
+            {
+                pers = await db.TabOrganizzatori.FindAsync(Id);
+            }
+            else if (cosa == "tutor")
+            {
+                pers = await db.TabTutor.FindAsync(Id);
+            }
+            //trova tabella del record e stampa dati nel
         }
 
 

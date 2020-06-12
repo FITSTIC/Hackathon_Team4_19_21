@@ -31,7 +31,7 @@
             </div>
             <div id="collapseDocenti" class="@(Collapsed1? "collapse": "" )">
                 <div class="col-12 col-sm-12 col-md-12">
-                    <div class="card-body">
+                    <div class="card-body" >
                         <div class="row">
                             <!--TABELLA DOCENTI INIZIO-->
                             <!--TABELLA DOCENTI INIZIO-->
@@ -64,7 +64,7 @@
                                                     @doc.NumTelefono
                                                 </td>
                                                 <td>
-                                                    <a data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                    <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-personale/@doc.Id/docente"><i class="fas fa-pencil-alt"></i></a>
                                                     <a data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
                                                 </td>
 
@@ -131,7 +131,7 @@
                                                 @org.NumTelefono
                                             </td>
                                             <td>
-                                                <a data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-personale/@org.Id/organizzatore"><i class="fas fa-pencil-alt"></i></a>
                                                 <a data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
                                             </td>
 
@@ -181,20 +181,20 @@
                                     @foreach (var tutor in all_tutor)
                                     {
                                         <tr>
-                                            <td id="idDocente">
+                                            <td id="idTutor">
                                                 @tutor.Id
                                             </td>
-                                            <td id="nomeDocente">
+                                            <td id="nomeTutor">
                                                 <b> @tutor.Nome  @tutor.Cognome </b>
                                             </td>
-                                            <td id="dataAssDoc">
+                                            <td id="dataAssTutor">
                                                 @tutor.DataAssunzione.ToShortDateString()
                                             </td>
-                                            <td id="telDoce">
+                                            <td id="telTutor">
                                                 @tutor.NumTelefono
                                             </td>
                                             <td>
-                                                <a data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-personale/@tutor.Id/Tutor"><i class="fas fa-pencil-alt"></i></a>
                                                 <a data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
                                             </td>
 
