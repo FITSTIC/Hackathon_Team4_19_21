@@ -26,17 +26,29 @@ namespace Fitstic_Hackathon_4.Data
     public class Docente : Personale
     {
 
-        public Docente()
+        public Docente(Personale person)
         {
-
+            Nome = person.Nome;
+            Cognome = person.Cognome;
+            Email = person.Email;
+            NumTelefono = person.NumTelefono;
+            DataNascita = person.DataNascita;
+            DataAssunzione = person.DataAssunzione;
+            
         }
     }
 
     public class Organizzatore : Personale
     {
 
-        public Organizzatore()
+        public Organizzatore( Personale person)
         {
+            Nome = person.Nome;
+            Cognome = person.Cognome;
+            Email = person.Email;
+            NumTelefono = person.NumTelefono;
+            DataNascita = person.DataNascita;
+            DataAssunzione = person.DataAssunzione;
 
         }
     }
@@ -44,9 +56,14 @@ namespace Fitstic_Hackathon_4.Data
     public class Tutor : Personale
     {
 
-        public Tutor()
+        public Tutor(Personale person)
         {
-
+            Nome = person.Nome;
+            Cognome = person.Cognome;
+            Email = person.Email;
+            NumTelefono = person.NumTelefono;
+            DataNascita = person.DataNascita;
+            DataAssunzione = person.DataAssunzione;
         }
     }
 

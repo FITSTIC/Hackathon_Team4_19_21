@@ -1,5 +1,5 @@
-﻿@page "/form-personale"
-@page "/form-personale/{id:int}"
+﻿@page "/form-corso"
+@page "/form-corso/{id:int}"
 @using Fitstic_Hackathon_4.Data
 @using Microsoft.EntityFrameworkCore
 @inject ApplicationDbContext db
@@ -16,7 +16,7 @@
 <!--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 -->
-<EditForm Model="pers" OnValidSubmit="()=> SalvaPersonale()">
+<EditForm Model="corso" OnValidSubmit="()=> SalvaCorso()">
     <DataAnnotationsValidator />
     <div class="container">
         <div id="accordion">
@@ -25,24 +25,17 @@
                     <div class="text-center">
                         @if (Id == 0)
                         {
-                            <h3>Inserimento NUOVO PERSONALE</h3>
+                            <h3>Inserimento NUOVO CORSO</h3>
                         }
                         else
                         {
-                            <h3>Modifica PERSONALE</h3>
+                            <h3>Modifica CORSO</h3>
                         }
 
                     </div>
                 </div>
             </div>
-
-            <label>Tipo di inserimento</label>
-            <select @bind="tipo" class="form-control" id="selTipoIns">
-                <option value="@TipoPersonale.Organizzatore">ORGANIZZATORE</option>
-                <option value="@TipoPersonale.Docente">DOCENTE</option>
-                <option value="@TipoPersonale.Tutor">TUTOR</option>
-            </select>
-
+                       
             <br />
 
             <div class="card card-default">
@@ -50,7 +43,7 @@
                     <h4 class="card-title">
                         <a data-toggle="collapse" data-parent="#accordion">
                             <i class="glyphicon glyphicon-search text-gold"></i>
-                            <b>DATI ANAGRAFICI</b>
+                            <b>DATI DEL CORSO</b>
                         </a>
                     </h4>
                 </div>
@@ -61,65 +54,52 @@
                                 <div class="form-group">
                                     <label class="control-label">NOME</label>
                                     <!--Campo x modifica dato o disponibile per nuovo inserimento-->
-                                    <input type="text" class="form-control" id="inputNomePart" @bind-value="pers.Nome" />
+                                    <input type="text" class="form-control" id="inputNomePart" @bind-value="corso.Nome" />
                                 </div>
                             </div>
                             <div class="col-md-1 col-lg-4">
                                 <div class="form-group">
-                                    <label class="control-label">COGNOME</label>
-                                    <input type="text" class="form-control" id="inputCognomePers" @bind-value="pers.Cognome" />
+                                    <label class="control-label">EDIZIONE</label>
+                                    <input type="text" class="form-control" id="inputCognomePers" @bind-value="corso.AnnoAccademico" />
                                 </div>
                             </div>
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
-                                    <label class="control-label">DATA DI NASCITA</label>
-                                    <div class="input-group date">
-                                        <input type="date" class="form-control" @bind-value="pers.DataNascita" />
-                                        <span class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button">
-                                                <i class="fa fa-calendar"></i>
-                                            </button>
-                                        </span>
+                                    <label class="control-label">DATA INIZIO</label>
+                                    <input type="date" class="form-control" id="inpDatInizoCorso" @bind-value="corso.DataInizio" />
+                                </div>
+
+
+                                <div class="col-md-2 col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label">DATA FINE</label>
+                                        <input type="date" class="form-control" id="ipnDataFineCorso" @bind-value="corso.DataFine" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label">ORGANIZZATORE</label>
+                                        <select type="email" class="form-control" id="inpOrgCorso">
+                                            <option>
+                                                <!--BINDNG CON TabOrganizzatori-->
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label">SEDE</label>
+                                        <input type="text" class="form-control" id="inputTelPart" @bind-value="corso.Sede" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label">EMAIL</label>
-                                    <input type="email" class="form-control" id="inputEmailPart" @bind-value="pers.Email" />
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-lg-3">
-                                <div class="form-group">
-                                    <label class="control-label">TELEFONO</label>
-                                    <input type="tel" class="form-control" id="inputTelPart" @bind-value="pers.NumTelefono" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 col-lg-3">
-                                <div class="form-group">
-                                    <label class="control-label">DATA ASSUNZIONE</label>
-                                    <input type="date" class="form-control" id="inputDatAssPers" @bind-value="pers.DataAssunzione" />
-                                </div>
-                            </div>
-
-                            <!--
-                            <div class="col-md-3 col-lg-2">
-                                <div class="form-group">
-                                    <label class="control-label">CAP</label>
-                                    <input type="text" class="form-control" id="inputCapPart" style="background-color:dimgrey" />
-                                </div>
-                            </div>
-                            -->
-                        </div>
                     </div>
                 </div>
             </div>
-
-
             <div class="card card-default">
                 <div class="card-header">
                     <h4 class="card-title">
@@ -145,10 +125,10 @@
     </div>
 </EditForm>
 
+<br />
+<br />
+<br />
 
-<br />
-<br />
-<br />
 
 <!--
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
@@ -165,51 +145,29 @@
     [Parameter]
     public int Valore { get; set; }
 
-    public Personale pers = new Personale();
-    public enum TipoPersonale
-    {
-        Organizzatore,
-        Docente,
-        Tutor
-    }
-
-    public TipoPersonale tipo;
-
+    public Corso corso = new Corso();
+           
     protected override async Task OnInitializedAsync()
     {
         if (Id == 0)
         {
-            pers = new Personale();
+            corso = new Corso();
         }
         else
         {
             //trova tabella del record e stampa dati nel form
-
+            
         }
 
 
     }
 
-    private async void SalvaPersonale()
+    private async void SalvaCorso()
     {
         if (Id == 0)
         {
             //inserimento nuovo record
-            if (tipo == TipoPersonale.Organizzatore)
-            {
-                db.TabOrganizzatori.Add((Organizzatore)pers);
-            }
-            else if (tipo == TipoPersonale.Docente)
-            {
-                db.TabDocenti.Add((Docente)pers);
-
-            }
-            else if (tipo == TipoPersonale.Tutor)
-            {
-                db.TabTutor.Add((Tutor)pers);
-            }
-
-
+            
             await db.SaveChangesAsync();
 
         }
@@ -219,7 +177,7 @@
             await db.SaveChangesAsync();
         }
 
-        NavigationManager.NavigateTo("/operatori");
+        NavigationManager.NavigateTo("/corsi");
 
     }
 
