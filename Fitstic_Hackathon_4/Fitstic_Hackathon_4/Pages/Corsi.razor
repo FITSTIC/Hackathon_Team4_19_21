@@ -2,7 +2,7 @@
 @using Fitstic_Hackathon_4.Data;
 @using Microsoft.EntityFrameworkCore;
 @inject ApplicationDbContext db
-<h1>CORSI</h1>
+<h1>TUTTI I CORSI</h1>
 
 
 
@@ -35,7 +35,7 @@
                         <div class="card-desc">
                             <h3>@c.Nome</h3>
                             <br />
-                            <p> <b> Coordinatore: </b> <!--JOIN su TabOrganizzatori--></p>
+                            <p> <b> Coordinatore: </b> @c.Organizzatore.Nome @c.Organizzatore.Cognome</p>
                             <p> <b> Periodo:<br /> </b> @c.DataInizio.ToShortDateString() - @c.DataFine.ToShortDateString() </p>
                             <p> <b>Sede:</b> @c.Sede</p>
 
@@ -51,13 +51,14 @@
 
 <!-- details card section starts from here -->
 
-@code {
+@code { 
 
     public Corso[] all_corsi;
 
     protected override async Task OnInitializedAsync()
     {
         all_corsi = await db.TabCorsi
+            .Include(x => x.Organizzatore) //JOIN su TabOrganizzatori
             .OrderBy(x => x.DataInizio)
             .ToArrayAsync();
 

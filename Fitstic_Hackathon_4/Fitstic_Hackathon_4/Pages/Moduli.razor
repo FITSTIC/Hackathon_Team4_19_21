@@ -1,7 +1,100 @@
-﻿@page "/all-moduli"
+﻿@page "/moduli"
+@using Fitstic_Hackathon_4.Data;
+@using Microsoft.EntityFrameworkCore;
+@inject ApplicationDbContext db
 
 <h3>TUTTI I MODULI</h3>
 
+<a class="button btn btn-primary btn-lg" href="form-partecipante">NUOVO </a>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Materia</th>
+                                    <th>Docente</th>
+                                    <th>Tutor</th>
+                                    <th>Attivo</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var mod in all_moduli)
+                                {
+                                    <tr>
+                                        <td id="idPart">
+                                            @mod.Id
+                                        </td>
+                                        <td>
+                                            <b>@mod.Nome</b>
+                                        </td>
+                                        <td>
+                                            @mod.Materia
+                                        </td>
+                                        <td >
+                                            @mod.Docente.Nome @mod.Docente.Cognome
+                                        </td>
+                                        <td>
+                                            @mod.Tutor.Nome @mod.Tutor.Cognome
+                                        </td>
+                                        <td>
+                                            <!--CONTROLLO SE INTERVALLO DATE È COMPRESA LA DATA ODIERNA
+                                            quindi stampa SÌ verde, oppure NO rosso-->
+
+                                            @if (mod.DataInizio < DateTime.Now && mod.DataFine > DateTime.Now)
+                                            {
+                                                <font color="green" size="15"> SÌ </font>
+                                            }
+                                            else
+                                            {
+                                                <font color="red" size="15"> NO </font>
+                                            }
+                                        </td>
+                                        <td>
+                                            <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-modulo/@mod.Id"><i class="fas fa-pencil-alt"></i></a>
+                                            <a data-toggle="tooltip" title="" data-original-title="Delete" @onclick="() => EliminaRecord(mod)"><i class="far fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @code {
+
+
+    private Modulo[] all_moduli;
+
+    protected override async Task OnInitializedAsync()
+    {
+        all_moduli = await db.TabModuli
+            .OrderBy(x => x.DataInizio)
+            .ToArrayAsync();
+
+
+    }
+
+    private async void EliminaRecord(Modulo selected_modulo)
+    {
+        db.TabModuli.Remove(selected_modulo);
+        db.SaveChanges();
+        await OnInitializedAsync();
+        StateHasChanged();
+    }
+
 
 }
