@@ -3,10 +3,22 @@
 @using Microsoft.EntityFrameworkCore;
 @inject ApplicationDbContext db
 
-<h3>TUTTI I MODULI</h3>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 
-<a class="button btn btn-primary btn-lg" href="form-partecipante">NUOVO </a>
+<h1>TUTTI I MODULI</h1>
 
+<a class="button btn btn-primary btn-lg" href="form-modulo">NUOVO </a>
+
+<br />
+<br />
+
+@if(all_moduli.Length == 0)
+{
+    <h3>
+       <font color="red" >NESSUN MODULO INSERITO</font>
+    </h3>
+}
+<br />
 <div class="container">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-12">
@@ -26,10 +38,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var mod in all_moduli)
+                                @foreach(Modulo mod in all_moduli)
                                 {
                                     <tr>
-                                        <td id="idPart">
+                                        <td>
                                             @mod.Id
                                         </td>
                                         <td>
@@ -50,11 +62,11 @@
 
                                             @if (mod.DataInizio < DateTime.Now && mod.DataFine > DateTime.Now)
                                             {
-                                                <font color="green" size="15"> SÌ </font>
+                                                <font color="green"> <b> SÌ </b></font>
                                             }
                                             else
                                             {
-                                                <font color="red" size="15"> NO </font>
+                                                <font color="red"> <b> NO </b></font>
                                             }
                                         </td>
                                         <td>
@@ -77,11 +89,13 @@
 @code {
 
 
-    private Modulo[] all_moduli;
+    public Modulo[] all_moduli;
 
     protected override async Task OnInitializedAsync()
     {
         all_moduli = await db.TabModuli
+            .Include(x => x.Docente)
+            .Include(x => x.Tutor)
             .OrderBy(x => x.DataInizio)
             .ToArrayAsync();
 

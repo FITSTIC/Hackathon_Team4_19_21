@@ -30,9 +30,9 @@ namespace Fitstic_Hackathon_4.Data
                 {   
                     Id = 2,
                     Nome = "Mario",
-                    Cognome = "Fillonari",
+                    Cognome = "Sarzanelli",
                     NumTelefono = 123456,
-                    Email = "sonoio@gmail.com",
+                    Email = "m.sarzanelli84@gmail.com",
                     DataAssunzione = DateTime.Now,
                     DataNascita = new DateTime(1984, 12, 07)
 
@@ -42,32 +42,124 @@ namespace Fitstic_Hackathon_4.Data
                 new Organizzatore
                 {
                     Id = 3,
-                    Nome = "Mario",
-                    Cognome = "Cadrega",
+                    Nome = "Luciana",
+                    Cognome = "Simonini",
                     NumTelefono = 33516523,
-                    Email = "caddy@gmail.com",
+                    Email = "l.simo@gmail.com",
                     DataAssunzione = DateTime.Now,
-                    DataNascita = new DateTime(1996, 04, 18)
+                    DataNascita = new DateTime(1986, 04, 18)
+
+                },
+
+                new Organizzatore
+                {
+                    Id = 4,
+                    Nome = "Giuseppe",
+                    Cognome = "Bartoli",
+                    NumTelefono = 3351743,
+                    Email = "g.bartoli@gmail.com",
+                    DataAssunzione = DateTime.Now,
+                    DataNascita = new DateTime(1976, 06, 13)
 
                 });
-
-
 
             builder.Entity<Partecipante>().HasData(
                new Partecipante
                {
                    Id = 3,
                    DataNascita = new DateTime(1974, 06, 15),
-                   Citta = "Brisighella",
+                   Citta = "MODENA",
                    Nome = "Gisella",
-                   Cognome = " Bianchi",
-                   Email = "ecco@gmail.com",
+                   Cognome = " Mariucci",
+                   Email = "gisella.mariucci@gmail.com",
                    Telefono = "3289632147",
                    AnnoDiploma = new DateTime(1994),
                    TipoDiploma = "Liceo Scientifico",
                    Indirizzo = "Via Stretta, 48"
 
+               },
+
+               new Partecipante
+               {
+                   Id = 5,
+                   DataNascita = new DateTime(1984, 07, 25),
+                   Citta = "RIMINI",
+                   Nome = "Antonio",
+                   Cognome = " Menicucci",
+                   Email = "antonio.maenicucci@gmail.com",
+                   Telefono = "3289632147",
+                   AnnoDiploma = new DateTime(2004),
+                   TipoDiploma = "Tecnico Agrario",
+                   Indirizzo = "Via Nazionale, 57"
+
                });
+
+            builder.Entity<Docente>().HasData(
+                new Docente
+                {
+                    Id = 1,
+                    Nome = "Daniele",
+                    Cognome = "Armeni",
+                    NumTelefono = 123456,
+                    Email = "d.armeni@gmail.com",
+                    DataAssunzione = DateTime.Now,
+                    DataNascita = new DateTime(1974, 12, 07)
+
+                },
+           
+                new Docente
+                {
+                    Id = 2,
+                    Nome = "Luca",
+                    Cognome = "Martini",
+                    NumTelefono = 123456,
+                    Email = "luca.mart84@gmail.com",
+                    DataAssunzione = DateTime.Now,
+                    DataNascita = new DateTime(1984, 11, 09)
+                });
+
+                
+
+
+            builder.Entity<Corso>().HasData(
+               new Corso
+               {
+                   Id = 1,
+                   Nome ="Cristoforo Colombo",
+                  AnnoAccademico = "2019-2021",
+                  DataInizio = new DateTime (2019, 11, 03),
+                  DataFine = new DateTime (2021, 07, 25),
+                   Sede = "CASALECCHIO DI R.",
+                   OrganizzatoreId = 3,
+               },
+                new Corso
+                {
+                    Id = 2,
+                    Nome = "Alan Turing",
+                    AnnoAccademico = "2019-2021",
+                    DataInizio = new DateTime(2019, 10, 03),
+                    DataFine = new DateTime(2021, 07, 14),
+                    Sede = "CESENA",
+                    OrganizzatoreId = 3,
+
+
+                });
+
+            
+            builder.Entity<Modulo>().HasData(
+                new Modulo
+                {
+                    Id = 3,
+                    Nome = "PROGRAMMAZIONE CLOUD",
+                    Materia = "CLOUD",
+                    DataInizio = new DateTime(2021, 01, 08),
+                    DataFine = new DateTime(2021, 05, 15),                    
+                    DocenteId = 1,
+                    TutorId = 2                    
+
+                });
+            
+
 
         }
     }

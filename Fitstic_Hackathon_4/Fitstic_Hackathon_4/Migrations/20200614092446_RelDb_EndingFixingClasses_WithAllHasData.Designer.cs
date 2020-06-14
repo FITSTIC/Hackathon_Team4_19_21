@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fitstic_Hackathon_4.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200613083343_RelDb_TabCorso")]
-    partial class RelDb_TabCorso
+    [Migration("20200614092446_RelDb_EndingFixingClasses_WithAllHasData")]
+    partial class RelDb_EndingFixingClasses_WithAllHasData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,28 @@ namespace Fitstic_Hackathon_4.Migrations
                     b.HasIndex("OrganizzatoreId");
 
                     b.ToTable("TabCorsi");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AnnoAccademico = "2019-2021",
+                            DataFine = new DateTime(2021, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataInizio = new DateTime(2019, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nome = "Cristoforo Colombo",
+                            OrganizzatoreId = 3,
+                            Sede = "CASALECCHIO DI R."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AnnoAccademico = "2019-2021",
+                            DataFine = new DateTime(2021, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataInizio = new DateTime(2019, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nome = "Alan Turing",
+                            OrganizzatoreId = 3,
+                            Sede = "CESENA"
+                        });
                 });
 
             modelBuilder.Entity("Fitstic_Hackathon_4.Data.Docente", b =>
@@ -80,6 +102,28 @@ namespace Fitstic_Hackathon_4.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TabDocenti");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cognome = "Armeni",
+                            DataAssunzione = new DateTime(2020, 6, 14, 11, 24, 45, 414, DateTimeKind.Local).AddTicks(6032),
+                            DataNascita = new DateTime(1974, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "d.armeni@gmail.com",
+                            Nome = "Daniele",
+                            NumTelefono = 123456
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cognome = "Martini",
+                            DataAssunzione = new DateTime(2020, 6, 14, 11, 24, 45, 414, DateTimeKind.Local).AddTicks(6071),
+                            DataNascita = new DateTime(1984, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "luca.mart84@gmail.com",
+                            Nome = "Luca",
+                            NumTelefono = 123456
+                        });
                 });
 
             modelBuilder.Entity("Fitstic_Hackathon_4.Data.Esame", b =>
@@ -102,6 +146,10 @@ namespace Fitstic_Hackathon_4.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ModuloId");
+
+                    b.HasIndex("PartecipanteId");
+
                     b.ToTable("TabEsami");
                 });
 
@@ -122,6 +170,10 @@ namespace Fitstic_Hackathon_4.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CorsoId");
+
+                    b.HasIndex("PartecipanteId");
+
                     b.ToTable("TabIscrizioni");
                 });
 
@@ -131,7 +183,7 @@ namespace Fitstic_Hackathon_4.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CorsoId")
+                    b.Property<int?>("CorsoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DataFine")
@@ -140,7 +192,7 @@ namespace Fitstic_Hackathon_4.Migrations
                     b.Property<DateTime>("DataInizio")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("DocenteId")
+                    b.Property<int?>("DocenteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Materia")
@@ -150,14 +202,30 @@ namespace Fitstic_Hackathon_4.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TutorId")
+                    b.Property<int?>("TutorId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CorsoId");
 
+                    b.HasIndex("DocenteId");
+
+                    b.HasIndex("TutorId");
+
                     b.ToTable("TabModuli");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            DataFine = new DateTime(2021, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataInizio = new DateTime(2021, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DocenteId = 1,
+                            Materia = "CLOUD",
+                            Nome = "PROGRAMMAZIONE CLOUD",
+                            TutorId = 2
+                        });
                 });
 
             modelBuilder.Entity("Fitstic_Hackathon_4.Data.Organizzatore", b =>
@@ -194,12 +262,22 @@ namespace Fitstic_Hackathon_4.Migrations
                         new
                         {
                             Id = 3,
-                            Cognome = "Cadrega",
-                            DataAssunzione = new DateTime(2020, 6, 13, 10, 33, 42, 828, DateTimeKind.Local).AddTicks(7711),
-                            DataNascita = new DateTime(1996, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "caddy@gmail.com",
-                            Nome = "Mario",
+                            Cognome = "Simonini",
+                            DataAssunzione = new DateTime(2020, 6, 14, 11, 24, 45, 413, DateTimeKind.Local).AddTicks(8403),
+                            DataNascita = new DateTime(1986, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "l.simo@gmail.com",
+                            Nome = "Luciana",
                             NumTelefono = 33516523
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Cognome = "Bartoli",
+                            DataAssunzione = new DateTime(2020, 6, 14, 11, 24, 45, 413, DateTimeKind.Local).AddTicks(8535),
+                            DataNascita = new DateTime(1976, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "g.bartoli@gmail.com",
+                            Nome = "Giuseppe",
+                            NumTelefono = 3351743
                         });
                 });
 
@@ -251,14 +329,27 @@ namespace Fitstic_Hackathon_4.Migrations
                         {
                             Id = 3,
                             AnnoDiploma = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(1994),
-                            Citta = "Brisighella",
-                            Cognome = " Bianchi",
+                            Citta = "MODENA",
+                            Cognome = " Mariucci",
                             DataNascita = new DateTime(1974, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ecco@gmail.com",
+                            Email = "gisella.mariucci@gmail.com",
                             Indirizzo = "Via Stretta, 48",
                             Nome = "Gisella",
                             Telefono = "3289632147",
                             TipoDiploma = "Liceo Scientifico"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AnnoDiploma = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2004),
+                            Citta = "RIMINI",
+                            Cognome = " Menicucci",
+                            DataNascita = new DateTime(1984, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "antonio.maenicucci@gmail.com",
+                            Indirizzo = "Via Nazionale, 57",
+                            Nome = "Antonio",
+                            Telefono = "3289632147",
+                            TipoDiploma = "Tecnico Agrario"
                         });
                 });
 
@@ -296,10 +387,10 @@ namespace Fitstic_Hackathon_4.Migrations
                         new
                         {
                             Id = 2,
-                            Cognome = "Fillonari",
-                            DataAssunzione = new DateTime(2020, 6, 13, 10, 33, 42, 822, DateTimeKind.Local).AddTicks(9184),
+                            Cognome = "Sarzanelli",
+                            DataAssunzione = new DateTime(2020, 6, 14, 11, 24, 45, 408, DateTimeKind.Local).AddTicks(902),
                             DataNascita = new DateTime(1984, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "sonoio@gmail.com",
+                            Email = "m.sarzanelli84@gmail.com",
                             Nome = "Mario",
                             NumTelefono = 123456
                         });
@@ -508,13 +599,49 @@ namespace Fitstic_Hackathon_4.Migrations
                         .HasForeignKey("OrganizzatoreId");
                 });
 
-            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Modulo", b =>
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Esame", b =>
                 {
-                    b.HasOne("Fitstic_Hackathon_4.Data.Corso", null)
-                        .WithMany("ListaModuli")
+                    b.HasOne("Fitstic_Hackathon_4.Data.Modulo", "Modulo")
+                        .WithMany()
+                        .HasForeignKey("ModuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Fitstic_Hackathon_4.Data.Partecipante", "Partecipante")
+                        .WithMany()
+                        .HasForeignKey("PartecipanteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Iscrizione", b =>
+                {
+                    b.HasOne("Fitstic_Hackathon_4.Data.Corso", "Corso")
+                        .WithMany()
                         .HasForeignKey("CorsoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Fitstic_Hackathon_4.Data.Partecipante", "Partecipante")
+                        .WithMany()
+                        .HasForeignKey("PartecipanteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Fitstic_Hackathon_4.Data.Modulo", b =>
+                {
+                    b.HasOne("Fitstic_Hackathon_4.Data.Corso", "Corso")
+                        .WithMany("ListaModuli")
+                        .HasForeignKey("CorsoId");
+
+                    b.HasOne("Fitstic_Hackathon_4.Data.Docente", "Docente")
+                        .WithMany()
+                        .HasForeignKey("DocenteId");
+
+                    b.HasOne("Fitstic_Hackathon_4.Data.Tutor", "Tutor")
+                        .WithMany()
+                        .HasForeignKey("TutorId");
                 });
 
             modelBuilder.Entity("Fitstic_Hackathon_4.Data.Partecipante", b =>

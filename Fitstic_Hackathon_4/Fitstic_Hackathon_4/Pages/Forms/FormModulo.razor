@@ -1,5 +1,5 @@
 ﻿@page "/form-modulo"
-@page "/form-modulo{id:int}"
+@page "/form-modulo/{id:int}"
 @using Fitstic_Hackathon_4.Data
 @using Microsoft.EntityFrameworkCore
 @inject ApplicationDbContext db
@@ -22,11 +22,11 @@
                     <div class="text-center">
                         @if (Id == 0)
                         {
-                            <h3>Inserimento NUOVO CORSO</h3>
+                            <h3>Inserimento NUOVO MODULO</h3>
                         }
                         else
                         {
-                            <h3>Modifica CORSO</h3>
+                            <h3>Modifica MODULO</h3>
                         }
 
                     </div>
@@ -50,13 +50,13 @@
                             <div class="col-md-3 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">NOME</label>
-                                    <input type="text" class="form-control" id="inputNomePart" @bind-value="mod.Nome" />
+                                    <InputText type="text" class="form-control" id="inputNomePart" @bind-Value="mod.Nome" />
                                 </div>
                             </div>
                             <div class="col-md-1 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">MATERIA</label>
-                                    <input type="text" class="form-control" id="inputCognomePers" @bind-value="mod.Materia" />
+                                    <InputText type="text" class="form-control" id="inputMateria" @bind-Value="mod.Materia" />
                                 </div>
                             </div>
 
@@ -65,20 +65,20 @@
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">DATA INIZIO</label>
-                                    <input type="date" class="form-control" id="inpDatInizoCorso" @bind-value="mod.DataInizio" />
+                                    <InputDate class="form-control" id="inpDataInizoMod"  @bind-Value="mod.DataInizio" />
                                 </div>
                             </div>
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">DATA FINE</label>
-                                    <input type="date" class="form-control" id="ipnDataFineCorso" @bind-value="mod.DataFine" />
+                                    <InputDate  class="form-control" id="inpDataFineMod" @bind-Value="mod.DataFine" />
                                 </div>
                             </div>
 
                             <div class="col-md-3 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">DOCENTE</label>
-                                    <select class="form-control" @bind="mod.DocenteId">
+                                    <select class="form-control" id="selDoc" @bind="mod.DocenteId">
                                         @foreach (var d in docenti)
                                         {
                                             <option value="@d.Id"> @d.Nome @d.Cognome</option>
@@ -90,7 +90,7 @@
                             <div class="col-md-3 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">TUTOR</label>
-                                    <select class="form-control" @bind="mod.TutorId">
+                                    <select class="form-control" id="selTutor" @bind="mod.TutorId">
                                         @foreach (var t in tutors)
                                         {
                                             <option value="@t.Id"> @t.Nome @t.Cognome</option>
@@ -105,28 +105,6 @@
                 </div>
             </div>
         </div>
-        <div class="card card-default">
-            <div class="card-header">
-                <h4 class="card-title">
-                    <a data-toggle="collapse" data-parent="#accordion">
-                        <i class="glyphicon glyphicon-lock text-gold"></i>
-                        <b>MODULI</b>
-                    </a>
-                </h4>
-            </div>
-        </div>
-        <div class="card card-default">
-            <div class="card-header">
-                <h4 class="card-title">
-                    <a data-toggle="collapse" data-parent="#accordion">
-                        <i class="glyphicon glyphicon-lock text-gold"></i>
-                        <b>PARTECIPANTI</b>
-                    </a>
-                </h4>
-            </div>
-        </div>
-        <br />
-    </div>
 
     <!--COMMAND BUTTONS-->
 
@@ -138,6 +116,7 @@
             </div>
         </div>
     </div>
+  </div>
 
 </EditForm>
 

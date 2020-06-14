@@ -11,7 +11,10 @@ namespace Fitstic_Hackathon_4.Data
         public int Punteggio { get; set; }
         [Required]
         public int ModuloId { get; set; }
+        public Modulo Modulo { get; set; }
+        [Required]
         public int PartecipanteId { get; set; }
+        public Partecipante Partecipante { get; set; }
 
         public Esame()
         {

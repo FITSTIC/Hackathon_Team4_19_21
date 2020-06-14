@@ -23,6 +23,10 @@ namespace Fitstic_Hackathon_4.Data
 
     public class Docente : Personale
     {
+        public Docente()
+        {
+
+        }
     }
 
     public class Organizzatore : Personale
@@ -34,6 +38,10 @@ namespace Fitstic_Hackathon_4.Data
 
     public class Tutor : Personale
     {
+        public Tutor()
+        {
+
+        }
     }
 
 

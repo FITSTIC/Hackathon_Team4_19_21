@@ -12,7 +12,8 @@
         <div class="col-12 col-sm-12 col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <a class="button btn btn-primary btn-lg" href="form-partecipante" >NUOVO </a>
+                    <a class="button btn btn-primary btn-lg" href="form-partecipante">NUOVO </a>
+                    <a class="button btn btn-primary btn-lg ml-3" href="form-iscrizione"> ISCRIZIONI </a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
@@ -24,7 +25,7 @@
                                     <th>Data Nascita</th>
                                     <th>Telefono</th>
                                     <th>Email</th>
-                                    <th>TipoDiploma</th>
+                                    <th>Corso</th>
                                     <th>Edit</th>
                                 </tr>
                             </thead>
@@ -48,7 +49,13 @@
                                            @part.Email                                        
                                         </td>
                                         <td>
-                                            @part.TipoDiploma
+                                            @foreach (var iscr in all_iscrizioni)
+                                            {
+                                                if(iscr.PartecipanteId == part.Id)
+                                                {
+                                                    @iscr.Corso.Nome.ToString()
+                                                }
+                                            }
                                         </td>
                                         <td>                                        
                                             <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-partecipante/@part.Id"><i class="fas fa-pencil-alt"></i></a>
@@ -69,15 +76,11 @@
 @code{
 
     public Partecipante[] all_partecipanti;
+    public Iscrizione[] all_iscrizioni;
+    public Corso[] all_corsi;
 
 
-    private async void  EliminaRecord(Partecipante selected_partecipant)
-    {
-        db.TabPartecipanti.Remove(selected_partecipant);
-        db.SaveChanges();
-        await OnInitializedAsync();
-        StateHasChanged();
-    }
+
 
 
     protected override async Task OnInitializedAsync()
@@ -85,6 +88,21 @@
         all_partecipanti = await db.TabPartecipanti
             .OrderBy(x => x.Cognome)
             .ToArrayAsync();
+
+        all_iscrizioni = await db.TabIscrizioni
+            .OrderBy(x => x.DataIscrizione)
+            .ToArrayAsync();
+
+        all_corsi = await db.TabCorsi
+        .ToArrayAsync();
+    }
+
+    private async void EliminaRecord(Partecipante selected_partecipant)
+    {
+        db.TabPartecipanti.Remove(selected_partecipant);
+        db.SaveChanges();
+        await OnInitializedAsync();
+        StateHasChanged();
     }
 
 }
