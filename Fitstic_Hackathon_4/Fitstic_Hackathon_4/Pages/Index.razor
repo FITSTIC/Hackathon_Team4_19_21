@@ -1,58 +1,67 @@
 ﻿@page "/"
+    <!-- <div class="col-md-4 col-xl-3"> MAIN DIV -->
+        <AuthorizeView>
+            <Authorized>
 
-    <AuthorizeView>
-        <Authorized>
-            
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-xl-3">
-                        <div class="card bg-c-blue order-card">
-                            <div class="card-block">
-                                <h3 class="m-b-20">CORSI</h3>
-                                <h2 class="text-right"><i class="fas fa-clone f-left"></i></h2>
-                                <!--class="m-b-0">Completed Orders<span class="f-right"></span></p> -->
-                                <a href="corsi" class="stretched-link" />
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-xl-3">
+                            <div class="card bg-c-blue order-card">
+                                <div class="card-block">
+                                    <h2 class="text-right"><i class="fas fa-clone f-left"></i></h2><br />
+                                    <h3 class="m-b-20">CORSI</h3>                                    
+                                    <!--class="m-b-0">Completed Orders<span class="f-right"></span></p> -->
+                                    <a href="corsi" class="stretched-link" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                                       
-                    <div class="col-md-4 col-xl-3">
-                        <div class="card bg-c-green order-card">
-                            <div class="card-block">
-                                <h3 class="m-b-20">PARTECIPANTI <br />ISCRIZIONI</h3>
-                                <h2 class="text-right"><i class="fa fa-users f-left"></i></h2>
-                                <!--<p class="m-b-0">Completed Orders<span class="f-right"></span></p>-->
-                                <a href="partecipanti" class="stretched-link"/>
-                            </div>
-                        </div>
-                    </div>                    
-                                        
-                    <div class="col-md-4 col-xl-3">
-                        <div class="card bg-c-yellow order-card">
-                            <div class="card-block">
-                                <h3 class="m-b-20">PERSONALE</h3>
-                                <h2 class="text-right"><i class="fas fa-user-tie f-left"></i></h2>
-                                <!--<p class="m-b-0">Completed Orders<span class="f-right"></span></p> -->
-                                <a href="operatori" class="stretched-link" />
-                            </div>
-                        </div>
-                    </div>                   
 
-                    <div class="col-md-4 col-xl-3">
-                        <div class="card bg-c-pink order-card">
-                            <div class="card-block">
-                                <h3 class="m-b-20">MODULI</h3>
-                                <h2 class="text-right"><i class="fas fa-chalkboard-teacher f-left"></i></h2>
-                                <!--<p class="m-b-0">Completed Orders<span class="f-right">351</span></p>-->
-                                <a href="moduli" class="stretched-link" />
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-c-green order-card">
+                                <div class="card-block">
+                                    <h2 class="text-right"><i class="fa fa-users f-left"></i></h2> <br />
+                                    <h3 class="m-b-20">PARTECIPANTI <br />ISCRIZIONI</h3>
+                                    <!--<p class="m-b-0">Completed Orders<span class="f-right"></span></p>-->
+                                    <a href="partecipanti" class="stretched-link" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-c-yellow order-card">
+                                <div class="card-block">
+                                    <h2 class="text-right"><i class="fas fa-user-tie f-left"></i></h2><br />
+                                    <h3 class="m-b-20">PERSONALE</h3>
+                                    <!--<p class="m-b-0">Completed Orders<span class="f-right"></span></p> -->
+                                    <a href="operatori" class="stretched-link" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-c-pink order-card">
+                                <div class="card-block">
+                                    <h2 class="text-right"><i class="fas fa-chalkboard-teacher f-left"></i></h2><br />
+                                    <h3 class="m-b-20">MODULI</h3>
+                                    <!--<p class="m-b-0">Completed Orders<span class="f-right">351</span></p>-->
+                                    <a href="moduli" class="stretched-link" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-transparent order-card">
+                                <div class="card-block">
+                                    <h3 class="m-b-20 text-danger">PAGINA DI TEST</h3>                                    <!--<p class="m-b-0">Completed Orders<span class="f-right"></span></p> -->
+                                    <a href="test" class="stretched-link" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </Authorized>
-        <NotAuthorized>
+            </Authorized>
+            <NotAuthorized>
 
-        </NotAuthorized>
-    </AuthorizeView>
+            </NotAuthorized>
+        </AuthorizeView>

@@ -1,0 +1,22 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Conferma della registrazione";
+}
+
+<h1>@ViewData["Title"]</h1>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+<p>
+    Ottimo, registrazione come operatore FITSTIC completata! <br />
+     <a href="@Model.EmailConfirmationUrl"> CLICCA QUI PER PROCEDERE </a>
+</p>
+    }
+    else
+    {
+<p>
+        Please check your email to confirm your account.
+</p>
+    }
+}

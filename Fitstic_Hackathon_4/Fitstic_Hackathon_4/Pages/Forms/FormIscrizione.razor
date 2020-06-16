@@ -3,9 +3,9 @@
 @using Microsoft.EntityFrameworkCore
 @inject ApplicationDbContext db
 @inject NavigationManager NavigationManager
+@inject IJSRuntime ijsRuntime
 
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
@@ -47,23 +47,24 @@ else
                             <div class="row">
                                 <div class="col-md-3 col-lg-4">
                                     <div class="form-group">
-                                        <label>STUDENTI</label>                                        
-                                            <select @bind="isc.PartecipanteId">
-
+                                        <label>STUDENTI</label> 
+                                            <select class=" form-control js-select2-multiple" name="studenti[]" multiple="multiple">                                                
                                                 @foreach (var part in partecipanti)
                                                 {
                                                     <option value="@part.Id"> @part.Nome @part.Cognome </option>
 
                                                 }
-
                                             </select>
+                                       
+
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-3 col-lg-4">
                                         <div class="form-group">
                                             <label class="control-label">CORSO</label>
-                                            <select title="Scegli un corso" @bind="isc.CorsoId">
+                                            <select title="Scegli un corso"  @bind="isc.CorsoId">
                                                 @foreach (var c in corsi)
                                                 {
                                                     <option value="@c.Id">@c.Nome</option>
@@ -79,8 +80,7 @@ else
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>           
 
             <!--COMMAND BUTTONS-->
 
@@ -89,7 +89,7 @@ else
                     <div class="pull-right">
                         <button type="submit" class="btn btn-success btn-lg" id="btnSubmit"><i class="fa fa-save"></i> Salva</button>
 
-                        <a class="btn btn-warning btn-lg" href="moduli" id="btnToTop"><i class="fa fa-arrow-left" href="operatori"></i> Indietro</a>
+                        <a class="btn btn-warning btn-lg" href="partecipanti" id="btnToTop"><i class="fa fa-arrow-left" href="operatori"></i> Indietro</a>
                     </div>
                 </div>
             </div>
@@ -103,15 +103,26 @@ else
 }
 
 
+@functions{
+
+   
+}
 
 
 @code {
-        
+
     private Iscrizione isc = new Iscrizione();
 
     public Partecipante[] partecipanti;
     public Corso[] corsi;
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            await ijsRuntime.InvokeVoidAsync("activateSelect2");
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -129,11 +140,11 @@ else
 
 
     private async void SalvaIscrizione()
-    {        
+    {
         //inserimento nuovo record            
         isc.DataIscrizione = DateTime.Now;
         db.TabIscrizioni.Add(isc);
-        await db.SaveChangesAsync();               
+        await db.SaveChangesAsync();
 
         NavigationManager.NavigateTo("/partecipanti");
 

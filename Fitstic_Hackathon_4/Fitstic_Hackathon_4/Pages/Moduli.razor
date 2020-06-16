@@ -58,7 +58,9 @@
                                         </td>
                                         <td>
                                             <!--CONTROLLO SE INTERVALLO DATE È COMPRESA LA DATA ODIERNA
-                                            quindi stampa SÌ verde, oppure NO rosso-->
+                                            quindi stampa SÌ verde, oppure NO rosso
+                                                SE IL MODULO NON FA PARTE DI ALCUN CORSO 
+                                                "corso?" in arancione-->
 
                                             @if (mod.DataInizio < DateTime.Now && mod.DataFine > DateTime.Now)
                                             {
@@ -68,6 +70,8 @@
                                             {
                                                 <font color="red"> <b> NO </b></font>
                                             }
+
+
                                         </td>
                                         <td>
                                             <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-modulo/@mod.Id"><i class="fas fa-pencil-alt"></i></a>

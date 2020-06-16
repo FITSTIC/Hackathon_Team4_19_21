@@ -37,14 +37,14 @@
 
             <div class="card card-default">
                 <div class="card-header">
-                    <h4 class="card-title">
+                    <h4 class="card-title btn-link">
                         <a data-toggle="collapse" data-parent="#accordion">
                             <i class="glyphicon glyphicon-search text-gold"></i>
                             <b>GENERALE</b>
                         </a>
                     </h4>
                 </div>
-                <div id="collapse1" class="collapse show">
+                <div id="collapseDatiCorso" class="collapse show">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3 col-lg-4">
@@ -79,13 +79,13 @@
                             <div class="col-md-3 col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">ORGANIZZATORE</label>
-                                        <select class="form-control" @bind="corso.OrganizzatoreId">
-                                            @foreach (var o in organizzatori)
-                                            {
-                                                <option value="@o.Id"> @o.Nome @o.Cognome</option>
-                                            }
+                                    <select class="form-control" @bind="corso.OrganizzatoreId">
+                                        @foreach (var o in organizzatori)
+                                        {
+                                            <option value="@o.Id"> @o.Nome @o.Cognome</option>
+                                        }
 
-                                        </select>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-2 col-lg-3">
@@ -98,104 +98,253 @@
                     </div>
                 </div>
             </div>
+
+            <!--CARD MODULI-->
+            <!--CARD MODULI-->
+
+            <div class="card card-default">
+                <div class="card-header">
+                    <h4 class="card-title btn-link">
+                        <a data-toggle="collapse" data-parent="#accordion" @onclick="e => this.CollapsedA = !this.CollapsedA ">
+                            @( this.CollapsedA ? "" : "" )
+                            <i class="glyphicon glyphicon-search text-gold"></i>
+                            <b>MODULI</b>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseModuliCorso" class="@(CollapsedA? "collapse": "" )">
+                    <div class="card-body">
+                        <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nome </th>
+                                        <th>Materia</th>
+                                        <th>Docente</th>
+                                        <th>Tutor</th>
+                                        <th>In corso</th>
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var modC in moduli_corso)
+                                    {
+                                        <tr>
+                                            <td id="idPart">
+                                                @modC.Id
+                                            </td>
+                                            <td>
+                                                <b>@modC.Nome  </b>
+                                            </td>
+                                            <td>
+                                                @modC.Materia
+                                            </td>
+                                            <td>
+                                                
+                                                @modC.Docente.Nome @modC.Docente.Cognome 
+                                            </td>
+                                            <td class="text-truncate">
+                                                
+                                                @modC.Tutor.Nome @modC.Tutor.Cognome
+                                            </td>
+                                            <td>
+                                                <!--CONTROLLO SE INTERVALLO DATE È COMPRESA LA DATA ODIERNA
+                                                quindi stampa SÌ verde, oppure NO rosso -->
+
+                                                @if (modC.DataInizio < DateTime.Now && modC.DataFine > DateTime.Now)
+                                                {
+                                                    <font color="green"> <b> SÌ </b></font>
+                                                }
+                                                else
+                                                {
+                                                    <font color="red"> <b> NO </b></font>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-modulo/@modC.Id"><i class="fas fa-pencil-alt"></i></a>
+                                                <a data-toggle="tooltip" title="" data-original-title="Delete" @onclick="()=>EliminaModuloCorso(modC)"><i class="far fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--CARD ISCRITTI-->
+            <!--CARD ISCRITTI-->
+
+
+            <div class="card card-default">
+                <div class="card-header">
+                    <h4 class="card-title btn-link">
+                        <a data-toggle="collapse" data-parent="#accordion" @onclick="e => this.CollapsedB = !this.CollapsedB ">
+                            @( this.CollapsedB ? "" : "" )
+                            <i class="glyphicon glyphicon-search text-gold"></i>
+                            <b>ISCRITTI</b>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseModuliCorso" class="@(CollapsedB? "collapse": "" )">
+                    <div class="card-body">
+                        <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Id Iscr.</th>
+                                        <th>Nome Cognome </th>
+                                        <th>Data Iscrizione</th>
+                                        <th>Telefono</th>                                        
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var isc in iscritti_corso)
+                                    {
+                                        <tr>
+                                            <td id="idPart">
+                                                @isc.Id
+                                            </td>
+                                            <td>
+                                                <b>@isc.Partecipante.Nome @isc.Partecipante.Cognome </b>
+                                            </td>                                         
+                                            <td>
+                                                @isc.DataIscrizione
+                                            </td>
+                                            <td>
+                                                @isc.Partecipante.Telefono
+                                            </td>                                            
+                                            <td>
+                                                <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-partecipante/@isc.PartecipanteId"><i class="fas fa-pencil-alt"></i></a>
+                                                <a data-toggle="tooltip" title="" data-original-title="Delete" @onclick="() => EliminaIscrizioneCorso(isc)"><i class="far fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
-        <div class="card card-default">
-            <div class="card-header">
-                <h4 class="card-title">
-                    <a data-toggle="collapse" data-parent="#accordion">
-                        <i class="glyphicon glyphicon-lock text-gold"></i>
-                        <b>MODULI</b>
-                    </a>
-                </h4>
+            </div>
+
+
+
+        <!--COMMAND BUTTONS-->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success btn-lg" id="btnSubmit"><i class="fa fa-save"></i> Salva</button>
+                    <a class="btn btn-warning btn-lg" href="corsi" id="btnToTop"><i class="fa fa-arrow-left" href="operatori"></i> Indietro</a>
+                </div>
             </div>
         </div>
-        <div class="card card-default">
-            <div class="card-header">
-                <h4 class="card-title">
-                    <a data-toggle="collapse" data-parent="#accordion">
-                        <i class="glyphicon glyphicon-lock text-gold"></i>
-                        <b>PARTECIPANTI</b>
-                    </a>
-                </h4>
-            </div>
-        </div>
+
+        </EditForm>
+
         <br />
-    </div>
-
-    <!--COMMAND BUTTONS-->
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="pull-right">
-                <button type="submit" class="btn btn-success btn-lg" id="btnSubmit"><i class="fa fa-save"></i> Salva</button>
-                <a class="btn btn-warning btn-lg" href="corsi" id="btnToTop"><i class="fa fa-arrow-left" href="operatori"></i> Indietro</a>
-            </div>
-        </div>
-    </div>
-
-</EditForm>
-
-<br />
-<br />
-<br />
-
-
-<!--
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-    -->
-
-
+        <br />
+        <br />
 
 @code {
 
-    [Parameter]
-    public int Id { get; set; }
+        [Parameter]
+        public bool CollapsedA { get; set; } = true;
+        public bool CollapsedB { get; set; } = true;            
 
-    private Organizzatore[] organizzatori;
-    private Corso corso = new Corso();
+        [Parameter]
+        public int Id { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        //creazione vettore Organizzatori x visualizzazione in InputSelect
-        this.organizzatori = await db.TabOrganizzatori
-            .AsNoTracking()
-            .OrderBy(x => x.Cognome)
-            .ToArrayAsync();
+        private Organizzatore[] organizzatori { get; set; }
+        private Iscrizione[] iscritti_corso;
+        private Modulo[] moduli_corso;
+        private Corso[] altri_corsi;
+        private Corso corso = new Corso();
 
-        if (Id == 0)
+        protected override async Task OnInitializedAsync()
         {
-            //istanza nuovo corso
-            corso = new Corso();
+
+            //creazione vettore Organizzatori x visualizzazione in InputSelect
+            this.organizzatori = await db.TabOrganizzatori
+                .AsNoTracking()
+                .ToArrayAsync();
+
+
+            this.iscritti_corso = await db.TabIscrizioni
+                .AsNoTracking()
+                .Include(x => x.Partecipante)
+                .Include(x => x.Corso)
+                .ToArrayAsync();
+
+            this.moduli_corso = await db.TabModuli
+                .AsNoTracking()
+                .Include(x => x.Corso)
+                .Include(x => x.Docente)
+                .Include(x => x.Tutor)                
+                .ToArrayAsync();
+
+            this.altri_corsi = await db.TabCorsi
+                .AsNoTracking()
+                .ToArrayAsync();
+
+
+
+            if (Id == 0)
+            {
+                //istanza nuovo corso
+                corso = new Corso();
+            }
+            else
+            {
+                //trova tabella del record e stampa dati nel form
+                corso = await db.TabCorsi.FindAsync(Id);
+            }
+
+
         }
-        else
+
+        public async void SalvaCorso()
         {
-            //trova tabella del record e stampa dati nel form
-            corso = await db.TabCorsi.FindAsync(Id);
+            if (Id == 0)
+            {
+                //inserimento nuovo record
+                db.TabCorsi.Add(corso);
+                await db.SaveChangesAsync();
+
+            }
+            else
+            {
+                //aggiornamento dati di un record esistente
+                await db.SaveChangesAsync();
+            }
+
+            NavigationManager.NavigateTo("/corsi");
+
         }
 
-
-    }
-
-    private async void SalvaCorso()
-    {
-        if (Id == 0)
+        private async void EliminaModuloCorso(Modulo mod_sel )
         {
-            //inserimento nuovo record
-            db.TabCorsi.Add(corso);
-            await db.SaveChangesAsync();
-
+            //eliminare un modulo da ListaModuli del Corso
         }
-        else
+
+        private async void EliminaIscrizioneCorso(Iscrizione iscr_sel)
         {
-            //aggiornamento dati di un record esistente
-            await db.SaveChangesAsync();
+            db.TabIscrizioni.Remove(iscr_sel);
+            db.SaveChanges();
+            await OnInitializedAsync();
+            StateHasChanged();
         }
-
-        NavigationManager.NavigateTo("/corsi");
-
-    }
 
 
 
