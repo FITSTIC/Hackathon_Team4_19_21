@@ -48,14 +48,14 @@ else
                                 <div class="col-md-3 col-lg-4">
                                     <div class="form-group">
                                         <label>STUDENTI</label> 
-                                            <select class=" form-control js-select2-multiple" name="studenti[]" multiple="multiple">                                                
-                                                @foreach (var part in partecipanti)
+                                            
+                                        <select class=" form-control js-select2-multiple" @bind="isc.PartecipanteId">                                                
+                                                @foreach (var part in partecipanti_non_iscritti)
                                                 {
                                                     <option value="@part.Id"> @part.Nome @part.Cognome </option>
 
                                                 }
-                                            </select>
-                                       
+                                            </select>                                       
 
                                             </div>
                                         </div>
@@ -103,17 +103,13 @@ else
 }
 
 
-@functions{
-
-   
-}
-
-
 @code {
 
     private Iscrizione isc = new Iscrizione();
-
+    private Partecipante part_test = new Partecipante();
     public Partecipante[] partecipanti;
+    public Partecipante[] partecipanti_iscritti;
+    public Partecipante[] partecipanti_non_iscritti;
     public Corso[] corsi;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -126,15 +122,22 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+
         partecipanti = await db.TabPartecipanti
-            .AsNoTracking()
             .OrderBy(x => x.Cognome)
             .ToArrayAsync();
 
+        partecipanti_iscritti = await db.TabIscrizioni
+            .Include(x => x.Partecipante)
+            .Select(x => x.Partecipante)
+            .ToArrayAsync();
+
+        partecipanti_non_iscritti = partecipanti.Except(partecipanti_iscritti).ToArray();
+
         corsi = await db.TabCorsi
-             .AsNoTracking()
-             .OrderBy(x => x.DataInizio)
-             .ToArrayAsync();
+         .AsNoTracking()
+         .OrderBy(x => x.DataInizio)
+         .ToArrayAsync();
 
     }
 
