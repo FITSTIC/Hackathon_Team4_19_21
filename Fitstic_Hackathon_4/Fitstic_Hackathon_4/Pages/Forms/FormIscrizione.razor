@@ -49,8 +49,8 @@ else
                                     <div class="form-group">
                                         <label>STUDENTI</label> 
                                             
-                                        <select class=" form-control js-select2-multiple" @bind="isc.PartecipanteId">                                                
-                                                @foreach (var part in partecipanti_non_iscritti)
+                                        <select class="form-control js-select2-multiple" @bind="isc.PartecipanteId">                                                
+                                                @foreach (var part in partecipanti)
                                                 {
                                                     <option value="@part.Id"> @part.Nome @part.Cognome </option>
 
@@ -105,8 +105,8 @@ else
 
 @code {
 
-    private Iscrizione isc = new Iscrizione();
-    private Partecipante part_test = new Partecipante();
+    public Iscrizione isc = new Iscrizione();
+    //private Partecipante part_test = new Partecipante();
     public Partecipante[] partecipanti;
     public Partecipante[] partecipanti_iscritti;
     public Partecipante[] partecipanti_non_iscritti;
@@ -131,8 +131,7 @@ else
             .Include(x => x.Partecipante)
             .Select(x => x.Partecipante)
             .ToArrayAsync();
-
-        partecipanti_non_iscritti = partecipanti.Except(partecipanti_iscritti).ToArray();
+        
 
         corsi = await db.TabCorsi
          .AsNoTracking()
@@ -142,7 +141,7 @@ else
     }
 
 
-    private async void SalvaIscrizione()
+    public async void SalvaIscrizione()
     {
         //inserimento nuovo record            
         isc.DataIscrizione = DateTime.Now;

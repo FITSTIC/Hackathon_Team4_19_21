@@ -1,0 +1,103 @@
+﻿@page "/form-esame/{id:int}"
+@using Fitstic_Hackathon_4.Data
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext db
+@inject NavigationManager NavigationManager
+@inject IJSRuntime ijsRuntime
+
+<center>
+    <h1>Inserimento voti modulo</h1>
+
+    @foreach (var mod in all_modules)
+    {
+        if (mod.Id == Id)
+        {
+            <h1>@mod.Nome</h1>
+        }
+    }
+</center>
+
+<EditForm Model="exam" OnValidSubmit="() => AssegnaVotiModulo()">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nome Cognome</th>
+                                        <th>Data Nascita</th>
+                                        <th>Voto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var part in iscr_mod)
+                                    {
+                                        <tr>
+                                            <td id="idPart">
+                                                @part.Id
+                                            </td>
+                                            <td>
+                                                @part.Partecipante.Nome  @part.Partecipante.Cognome
+                                            </td>
+                                            <td>
+                                                @part.Partecipante.DataNascita.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                <InputNumber @bind-Value="exam.Punteggio"></InputNumber>
+                                            </td>
+                                            <td>
+                                                <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-partecipante/@part.Id"><i class="fas fa-pencil-alt"></i></a>
+                                                <a data-toggle="tooltip" title="" data-original-title="Delete" @onclick="()=>EliminaRecord(part)"><i class="far fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-warning btn-lg" id="btnSubmitVotes"><i class="fa fa-saved" > </i> ASSEGNA </button>
+
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public Iscrizione[] iscr_mod { get; set; }
+    public Modulo[] all_modules { get; set; }
+    public Esame exam { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.all_modules = await db.TabModuli
+            .ToArrayAsync();
+
+        this.iscr_mod = await db.TabIscrizioni
+            .ToArrayAsync();
+
+    }
+
+    public async void AssegnaVotiModulo()
+    {
+
+    }
+
+
+}
