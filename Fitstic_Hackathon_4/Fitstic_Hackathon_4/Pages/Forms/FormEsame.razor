@@ -30,9 +30,10 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nome Cognome</th>
+                                        <th><b> Nome Cognome </b></th>
                                         <th>Data Nascita</th>
                                         <th>Voto</th>
+                                        <th>Azioni</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,7 +54,7 @@
                                             </td>
                                             <td>
                                                 <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-partecipante/@part.Id"><i class="fas fa-pencil-alt"></i></a>
-                                                <a data-toggle="tooltip" title="" data-original-title="Delete" @onclick="()=>EliminaRecord(part)"><i class="far fa-trash-alt"></i></a>
+                                                <a data-toggle="tooltip" title="" data-original-title="Delete" @*@onclick="()=>EliminaRecord(part)"*@><i class="far fa-trash-alt"></i></a>
                                             </td>
                                         </tr>
 
@@ -81,15 +82,16 @@
 
     public Iscrizione[] iscr_mod { get; set; }
     public Modulo[] all_modules { get; set; }
-    public Esame exam { get; set; }
+    public Esame exam { get; set; } = new Esame();
 
 
     protected override async Task OnInitializedAsync()
     {
-        this.all_modules = await db.TabModuli
+        this.all_modules = await db.TabModuli            
             .ToArrayAsync();
 
         this.iscr_mod = await db.TabIscrizioni
+            .Include(x => x.Partecipante)            
             .ToArrayAsync();
 
     }

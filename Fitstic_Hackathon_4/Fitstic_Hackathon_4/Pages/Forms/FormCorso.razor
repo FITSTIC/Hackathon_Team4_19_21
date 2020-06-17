@@ -41,7 +41,7 @@
             <div class="card card-default">
                 <div class="card-header">
                     <h4 class="card-title btn-link">
-                        <a data-toggle="collapse" data-parent="#accordion">
+                        <a class="pointer-link" data-toggle="collapse" data-parent="#accordion">
                             <i class="glyphicon glyphicon-search text-gold"></i>
                             <b>GENERALE</b>
                         </a>
@@ -120,7 +120,7 @@
         <div class="card card-default">
             <div class="card-header">
                 <h4 class="card-title btn-link">
-                    <a data-toggle="collapse" data-parent="#accordion" @onclick="e => this.CollapsedA = !this.CollapsedA ">
+                    <a class="pointer-link "data-toggle="collapse" data-parent="#accordion" @onclick="e => this.CollapsedA = !this.CollapsedA ">
                         @( this.CollapsedA ? "" : "" )
                         <i class="glyphicon glyphicon-search text-gold"></i>
                         <b>MODULI</b>
@@ -130,19 +130,19 @@
 
             <div id="collapseModuliCorso" class="@(CollapsedA? "collapse": "" )">
                 <div class="card-body">
-                    <EditForm Model="@adding_module" OnSubmit="() => AggiungiModuloCorso()">
+                    @*<EditForm Model="@adding_module" OnSubmit="() => AggiungiModuloCorso()"> *@
                         <div class="form-group">
                             <label> Inserisci moduli</label> <br />
-                            <select class="form-control js-select2-multiple" name="selMod" @bind="adding_module">
+                            <select class="form-control js-select2-multiple" name="selMod">
                                 @foreach (var mod in altri_moduli)
                                 {
-                                    <option value="valori[@mod.Id, @mod.Nome, @mod.Materia, @mod.DataInizio, @mod.DataFine, @mod.DocenteId, @mod.TutorId]"> @mod.Nome </option>
+                                    <option value="@mod.Id"> @mod.Nome </option>
 
                                 }
                             </select>
                             <button type="submit" class="button btn btn-primary" href="form-personale"> AGGIUNGI </button>
-                        </div>                     
-                    </EditForm>
+                        </div>                      
+                    <!--</EditForm>-->
                     <br />
                     <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
                         <table class="table table-striped">
@@ -213,7 +213,7 @@
         <div class="card card-default">
             <div class="card-header">
                 <h4 class="card-title btn-link">
-                    <a data-toggle="collapse" data-parent="#accordion" @onclick="e => this.CollapsedB = !this.CollapsedB ">
+                    <a class="pointer-link" data-toggle="collapse" data-parent="#accordion" @onclick="e => this.CollapsedB = !this.CollapsedB ">
                         @( this.CollapsedB ? "" : "" )
                         <i class="glyphicon glyphicon-search text-gold"></i>
                         <b>ISCRITTI</b>
@@ -284,7 +284,7 @@
 
     private Organizzatore[] organizzatori { get; set; }
     private Iscrizione[] iscritti_corso;
-    private Modulo adding_module { get; set; }
+    public int adding_moduleId { get => adding_moduleId; set => adding_moduleId = value ; }
     private Modulo[] moduli_corso;
     private Modulo[] altri_moduli;
     private Corso[] altri_corsi;
@@ -361,9 +361,9 @@
 
     }
 
-    public async void AggiungiModuloCorso()
+    public async void AggiungiModuloCorso(int mod_id)
     {
-        adding_module.CorsoId = Id;        
+        db.TabModuli.FindAsync(mod_id).Result.CorsoId = Id;
         db.SaveChanges();
         await OnInitializedAsync();
         StateHasChanged();
