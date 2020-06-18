@@ -1,4 +1,4 @@
-﻿@page "/form-esame/{id:int}"
+﻿@page "/form-esame/{idMod:int}/{idCorso:int}"
 @using Fitstic_Hackathon_4.Data
 @using Microsoft.EntityFrameworkCore
 @inject ApplicationDbContext db
@@ -10,7 +10,7 @@
 
     @foreach (var mod in all_modules)
     {
-        if (mod.Id == Id)
+        if (mod.Id == idMod)
         {
             <h1>@mod.Nome</h1>
         }
@@ -18,6 +18,7 @@
 </center>
 
 
+<EditForm Model="exam" OnValidSubmit="() => AssegnaVotiModulo()">
     <div class="container">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12">
@@ -27,7 +28,7 @@
                     <div class="card-body">
                         <br />
                         <label>Data esame:</label>
-                        <input type="date" class="form-control" @bind="data_esame"/>
+                        <input type="date" class="form-control" @bind="data_esame" />
                         <br />
                         <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
                             <table class="table table-striped">
@@ -42,27 +43,31 @@
                                 </thead>
                                 <tbody>
                                     @foreach (var isc in iscr_mod)
-                                    {    <EditForm Model="exam" OnValidSubmit="() => AssegnaVotiModulo()">
-                                            <tr>
-                                                <td id="idPart">
-                                                    @isc.PartecipanteId
-                                                </td>
-                                                <td id="nominativoPartEsame">
-                                                    @isc.Partecipante.Nome  @isc.Partecipante.Cognome
-                                                </td>
-                                                <td id="birthdatePartEsame">
-                                                    @isc.Partecipante.DataNascita.ToShortDateString()
-                                                </td>
-                                                <td id="insVotoEsame">
-                                                    <InputNumber id="inputVoto" @bind-Value="exam.Punteggio"></InputNumber>
-                                                </td>
-                                                <td id="actions">
-                                                    <button id="assegnaVoto" class="btn-link" type="submit"> Assegna </button>
-                                                </td>
-                                            </tr>
-                                         </EditForm>
-                                      }
+                                    {
 
+                                        <tr>
+
+                                            <td id="idPart">
+                                                @isc.Partecipante.Id
+                                            </td>
+                                            <td id="nominativoPartEsame">
+                                                @isc.Partecipante.Nome  @isc.Partecipante.Cognome
+                                            </td>
+                                            <td id="birthdatePartEsame">
+                                                @isc.Partecipante.DataNascita.ToShortDateString()
+                                            </td>
+                                            <td id="insVotoEsame">
+
+                                                <InputNumber id="@isc.Partecipante.Id" @bind-Value="exam.Punteggio"></InputNumber>
+
+                                            </td>
+                                            <td id="actions">
+                                                <button id="assegnaVoto" class="btn-link" type="submit"> Assegna </button>
+                                            </td>
+
+                                        </tr>
+
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -71,19 +76,21 @@
             </div>
         </div>
     </div>
+</EditForm>
+<br />
 
-    <br />
+<!-- <button type="submit" class="btn btn-warning btn-lg " id="btnSubmitVotes"><i class="fa fa-saved" > </i> ASSEGNA </button> -->
 
-    <!-- <button type="submit" class="btn btn-warning btn-lg " id="btnSubmitVotes"><i class="fa fa-saved" > </i> ASSEGNA </button> -->
-
-    <br />
+<br />
 
 
 
 @code {
 
     [Parameter]
-    public int Id { get; set; }
+    public int idCorso { get; set; }
+    [Parameter]
+    public int idMod { get; set; }
     public DateTime data_esame { get; set; } = new DateTime();
 
     public Iscrizione[] iscr_mod { get; set; }
@@ -97,7 +104,9 @@
             .ToArrayAsync();
 
         this.iscr_mod = await db.TabIscrizioni
-            .Include(x => x.Partecipante)            
+            .Include(x => x.Partecipante)
+            .Include(x => x.Corso)
+            .Where(x => x.CorsoId == idCorso)
             .ToArrayAsync();
 
     }
@@ -105,7 +114,7 @@
     public async void AssegnaVotiModulo()
     {
         exam.Data = data_esame;
-        exam.ModuloId = Id;
+        exam.ModuloId = idMod;
         db.TabEsami.Add(exam);
         await db.SaveChangesAsync();
     }
