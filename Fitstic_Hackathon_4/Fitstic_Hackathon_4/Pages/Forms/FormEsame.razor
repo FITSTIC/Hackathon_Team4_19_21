@@ -17,7 +17,7 @@
     }
 </center>
 
-<EditForm Model="exam" OnValidSubmit="() => AssegnaVotiModulo()">
+
     <div class="container">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12">
@@ -25,6 +25,10 @@
                     <div class="card-header">
                     </div>
                     <div class="card-body">
+                        <br />
+                        <label>Data esame:</label>
+                        <input type="date" class="form-control" @bind="data_esame"/>
+                        <br />
                         <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
                             <table class="table table-striped">
                                 <thead>
@@ -37,28 +41,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var part in iscr_mod)
-                                    {
-                                        <tr>
-                                            <td id="idPart">
-                                                @part.Id
-                                            </td>
-                                            <td>
-                                                @part.Partecipante.Nome  @part.Partecipante.Cognome
-                                            </td>
-                                            <td>
-                                                @part.Partecipante.DataNascita.ToShortDateString()
-                                            </td>
-                                            <td>
-                                                <InputNumber @bind-Value="exam.Punteggio"></InputNumber>
-                                            </td>
-                                            <td>
-                                                <a data-toggle="tooltip" title="" data-original-title="Edit" href="form-partecipante/@part.Id"><i class="fas fa-pencil-alt"></i></a>
-                                                <a data-toggle="tooltip" title="" data-original-title="Delete" @*@onclick="()=>EliminaRecord(part)"*@><i class="far fa-trash-alt"></i></a>
-                                            </td>
-                                        </tr>
+                                    @foreach (var isc in iscr_mod)
+                                    {    <EditForm Model="exam" OnValidSubmit="() => AssegnaVotiModulo()">
+                                            <tr>
+                                                <td id="idPart">
+                                                    @isc.PartecipanteId
+                                                </td>
+                                                <td id="nominativoPartEsame">
+                                                    @isc.Partecipante.Nome  @isc.Partecipante.Cognome
+                                                </td>
+                                                <td id="birthdatePartEsame">
+                                                    @isc.Partecipante.DataNascita.ToShortDateString()
+                                                </td>
+                                                <td id="insVotoEsame">
+                                                    <InputNumber id="inputVoto" @bind-Value="exam.Punteggio"></InputNumber>
+                                                </td>
+                                                <td id="actions">
+                                                    <button id="assegnaVoto" class="btn-link" type="submit"> Assegna </button>
+                                                </td>
+                                            </tr>
+                                         </EditForm>
+                                      }
 
-                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -70,15 +74,17 @@
 
     <br />
 
-    <button type="submit" class="btn btn-warning btn-lg" id="btnSubmitVotes"><i class="fa fa-saved" > </i> ASSEGNA </button>
+    <!-- <button type="submit" class="btn btn-warning btn-lg " id="btnSubmitVotes"><i class="fa fa-saved" > </i> ASSEGNA </button> -->
 
-</EditForm>
+    <br />
+
 
 
 @code {
 
     [Parameter]
     public int Id { get; set; }
+    public DateTime data_esame { get; set; } = new DateTime();
 
     public Iscrizione[] iscr_mod { get; set; }
     public Modulo[] all_modules { get; set; }
@@ -87,7 +93,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        this.all_modules = await db.TabModuli            
+        this.all_modules = await db.TabModuli
             .ToArrayAsync();
 
         this.iscr_mod = await db.TabIscrizioni
@@ -98,7 +104,10 @@
 
     public async void AssegnaVotiModulo()
     {
-
+        exam.Data = data_esame;
+        exam.ModuloId = Id;
+        db.TabEsami.Add(exam);
+        await db.SaveChangesAsync();
     }
 
 

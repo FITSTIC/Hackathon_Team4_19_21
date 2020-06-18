@@ -310,6 +310,7 @@
         this.iscritti_corso = await db.TabIscrizioni
             .Include(x => x.Partecipante)
             .Include(x => x.Corso)
+            .Where(x => x.CorsoId == Id)
             .ToArrayAsync();
 
         this.moduli_corso = await db.TabModuli

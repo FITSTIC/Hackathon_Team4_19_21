@@ -47,56 +47,51 @@ else
                             <div class="row">
                                 <div class="col-md-3 col-lg-4">
                                     <div class="form-group">
-                                        <label>STUDENTI</label> 
-                                            
-                                        <select class="form-control js-select2-multiple" @bind="isc.PartecipanteId">                                                
-                                                @foreach (var part in partecipanti)
-                                                {
-                                                    <option value="@part.Id"> @part.Nome @part.Cognome </option>
+                                        <label class="control-label" for="selStud">STUDENTI</label>
+                                        <select id="selStud" title="Scegli un partecipante"
+                                                class="form-control" @bind="isc.PartecipanteId">
+                                            @foreach (var part in partecipanti)
+                                            {
+                                                <option value="@part.Id"> @part.Nome @part.Cognome </option>
+                                            }
+                                        </select>
+                                        <label for="selectCorso" class="control-label">CORSO</label>
+                                        <select id="selectCorso" title="Scegli un corso"
+                                                class="form-control" @bind="isc.CorsoId">
+                                            @foreach (var c in corsi)
+                                            {
+                                                <option value="@c.Id">@c.Nome</option>
 
-                                                }
-                                            </select>                                       
-
-                                            </div>
-                                        </div>
+                                            }
+                                        </select>
                                     </div>
-
-                                    <div class="col-md-3 col-lg-4">
-                                        <div class="form-group">
-                                            <label class="control-label">CORSO</label>
-                                            <select title="Scegli un corso"  @bind="isc.CorsoId">
-                                                @foreach (var c in corsi)
-                                                {
-                                                    <option value="@c.Id">@c.Nome</option>
-
-                                                }
-                                            </select>
-
-                                        </div>
-                                    </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                </div>           
-
-            <!--COMMAND BUTTONS-->
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="pull-right">
-                        <button type="submit" class="btn btn-success btn-lg" id="btnSubmit"><i class="fa fa-save"></i> Salva</button>
-
-                        <a class="btn btn-warning btn-lg" href="partecipanti" id="btnToTop"><i class="fa fa-arrow-left" href="operatori"></i> Indietro</a>
-                    </div>
                 </div>
             </div>
-        
+        </div>
+
+
+
+
+
+
+        <!--COMMAND BUTTONS-->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success btn-lg" id="btnSubmit"><i class="fa fa-save"></i> Salva</button>
+
+                    <a class="btn btn-warning btn-lg" href="partecipanti" id="btnToTop"><i class="fa fa-arrow-left" href="operatori"></i> Indietro</a>
+                </div>
+            </div>
+        </div>
+
     </EditForm>
-
-
+   
     <br />
     <br />
     <br />
@@ -112,6 +107,8 @@ else
     public Partecipante[] partecipanti_non_iscritti;
     public Corso[] corsi;
 
+
+    /*
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if(firstRender)
@@ -119,6 +116,8 @@ else
             await ijsRuntime.InvokeVoidAsync("activateSelect2");
         }
     }
+    */
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -131,13 +130,18 @@ else
             .Include(x => x.Partecipante)
             .Select(x => x.Partecipante)
             .ToArrayAsync();
-        
+
 
         corsi = await db.TabCorsi
          .AsNoTracking()
          .OrderBy(x => x.DataInizio)
          .ToArrayAsync();
 
+    }
+
+    private void OnChangePartecipanteId (ChangeEventArgs x)
+    {
+        isc.PartecipanteId = Int32.Parse(x.Value.ToString());
     }
 
 
