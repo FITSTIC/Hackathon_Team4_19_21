@@ -1,0 +1,150 @@
+﻿@page "/report-modulo/{idCorso:int}/{idMod:int}"
+@using Fitstic_Hackathon_4.Data
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext db
+@inject NavigationManager NavigationManager
+
+    <center>
+        <div class="h2 text-dark">Report modulo</div>
+
+        @foreach (var mod in all_modules)
+        {
+            if (mod.Id == idMod)
+            {
+                <div class="h2 text-dark">@mod.Nome</div>
+            }
+        }
+
+    </center>
+
+<br />
+
+@if (all_votes_exam.Length == 0)
+{
+    <div class="h3 text-danger">NESSUN ESAME SVOLTO PER QUESTO MODULO! </div>
+    <br />
+    <a class="btn btn-warning btn-lg" href="./" id="btnToTop"><i class="fa fa-home" href="/"></i> Home</a>
+}
+else
+{
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12">
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">                                
+                               <div> TOTALE ASSEGNATE:
+                                @if (all_votes_exam.Length < all_iscritti.Length)
+                                {
+                                    <div class="text-danger"> @all_votes_exam.Length.ToString() / @all_iscritti.Length</div>
+                                }
+                                else
+                                {
+                                    <div class="text-success"> @all_votes_exam.Length.ToString() / @all_iscritti.Length</div>
+                                }
+                                </div>
+                               <div>
+                                   MEDIA VALUTAZIONI:
+                                    
+                                   @if (media >= 60)
+                                   {
+                                       <div class="text-success">@media.ToString()</div>
+                                   }
+                                   else
+                                   {
+                                       <div class="text-danger"> @media.ToString()</div>
+                                   }
+                               </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th> Nome Cognome </th>
+                                        <th>Data Nascita</th>
+                                        <th> Valutazione </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var rec in all_votes_exam)
+                                    {
+                                        <tr>
+                                            <td id="idEsame">
+                                                @rec.Id
+                                            </td>
+                                            <td id="nomeStud">
+                                                <b> @rec.Partecipante.Nome @rec.Partecipante.Cognome </b>
+                                            </td>
+                                            <td>
+                                                @rec.Partecipante.DataNascita.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                <b> @rec.Punteggio </b>
+                                            </td>
+                                        </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+        [Parameter]
+        public int idCorso { get; set; }
+        [Parameter]
+        public int idMod { get; set; }
+
+    public int media = 0;
+    public int somma = 0;
+
+    public Modulo[] all_modules { get; set; }
+    public Esame[] all_votes_exam { get; set; }
+    public Iscrizione[] all_iscritti { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        this.all_modules = await db.TabModuli
+            .ToArrayAsync();
+
+        this.all_votes_exam = await db.TabEsami
+            .Include(x => x.Modulo)
+            .Include(x => x.Partecipante)
+            .Where(x => x.ModuloId == idMod)
+            .ToArrayAsync();
+
+        this.all_iscritti = await db.TabIscrizioni
+            .ToArrayAsync();
+
+
+        if (all_votes_exam.Length > 0)
+        {
+
+            foreach (var elem in all_votes_exam)
+            {
+                somma += elem.Punteggio;
+            }
+
+            media = somma / all_votes_exam.Length;
+        }
+
+
+    }
+}
+
+
+

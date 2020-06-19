@@ -8,6 +8,7 @@ namespace Fitstic_Hackathon_4.Data
     {        
         public int Id { get; set; }
         public DateTime Data { get; set; }
+        public string Nome { get; set; }
         public int Punteggio { get; set; }
         [Required]
         public int ModuloId { get; set; }

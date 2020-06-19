@@ -130,10 +130,10 @@
 
             <div id="collapseModuliCorso" class="@(CollapsedA? "collapse": "" )">
                 <div class="card-body">
-                    @*<EditForm Model="@adding_module" OnSubmit="() => AggiungiModuloCorso()"> *@
+                    <EditForm Model="@adding_module" OnSubmit="() => AggiungiModuloCorso()"> 
                         <div class="form-group">
                             <label> Inserisci moduli</label> <br />
-                            <select class="form-control js-select2-multiple" name="selMod">
+                            <select class="form-control" name="selMod">
                                 @foreach (var mod in altri_moduli)
                                 {
                                     <option value="@mod.Id"> @mod.Nome </option>
@@ -142,7 +142,7 @@
                             </select>
                             <button type="submit" class="button btn btn-primary" href="form-personale"> AGGIUNGI </button>
                         </div>                      
-                    <!--</EditForm>-->
+                    </EditForm>
                     <br />
                     <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
                         <table class="table table-striped">
@@ -192,9 +192,10 @@
                                             }
                                         </td>
                                         <td>
-                                            <a data-toggle="tooltip" title="" data-original-title="Assegna voti" href="form-esame/@modC.Id/@Id"><i class="fas fa-list-alt"></i></a>
-                                            <a data-toggle="tooltip" title="" data-original-title="Modifica" href="form-modulo/@modC.Id"><i class="fas fa-pencil-alt"></i></a>
-                                            <a data-toggle="tooltip" title="" data-original-title="Modulo non assegnato" @onclick="() => EliminaModuloCorso(modC)"><i class="far fa-trash-alt"></i></a>
+                                            <a data-toggle="tooltip" title="Report" data-original-title="Vedi andamento" href="report-modulo/@corso.Id/@modC.Id"><i class="fas fa-stats"></i></a>
+                                            <a data-toggle="tooltip" title="Assegna voti" data-original-title="Assegna voti" href="form-esame/@modC.Id"><i class="fas fa-list-alt"></i></a>
+                                            <a data-toggle="tooltip" title="Modifica" data-original-title="Modifica" href="form-modulo/@modC.Id"><i class="fas fa-pencil-alt"></i></a>
+                                            <a data-toggle="tooltip" title="Modulo non più assegnato" data-original-title="Modulo non più assegnato" @onclick="() => EliminaModuloCorso(modC)"><i class="far fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
 
@@ -284,7 +285,6 @@
 
     private Organizzatore[] organizzatori { get; set; }
     private Iscrizione[] iscritti_corso;
-    public int adding_moduleId { get => adding_moduleId; set => adding_moduleId = value ; }
     private Modulo[] moduli_corso;
     private Modulo[] altri_moduli;
     private Corso[] altri_corsi;
@@ -292,14 +292,7 @@
     private Modulo mod_test = new Modulo();
     private Corso corso = new Corso();
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await ijsRuntime.InvokeVoidAsync("activateSelect2");
-        }
-    }
-
+    
     protected override async Task OnInitializedAsync()
     {
 

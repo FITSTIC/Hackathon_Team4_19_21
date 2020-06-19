@@ -6,7 +6,10 @@
         </Found>
         <NotFound>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
+                <div class="error-layout">
+                    <div class="h3 text-danger">NESSUN CONTENUTO DISPONIBILE IN QUESTA PAGINA</div>
+                    <a class="btn btn-warning btn-lg" href="./" id="btnToTop"><i class="fa fa-home" href="/"></i> Home</a>
+                </div>
             </LayoutView>
         </NotFound>
     </Router>

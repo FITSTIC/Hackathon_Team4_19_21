@@ -50,7 +50,7 @@ else
                                         <label class="control-label" for="selStud">STUDENTI</label>
                                         <select id="selStud" title="Scegli un partecipante"
                                                 class="form-control" @bind="isc.PartecipanteId">
-                                            @foreach (var part in partecipanti)
+                                            @foreach (var part in partecipanti_non_iscritti)
                                             {
                                                 <option value="@part.Id"> @part.Nome @part.Cognome </option>
                                             }
@@ -91,7 +91,7 @@ else
         </div>
 
     </EditForm>
-   
+
     <br />
     <br />
     <br />
@@ -104,19 +104,9 @@ else
     //private Partecipante part_test = new Partecipante();
     public Partecipante[] partecipanti;
     public Partecipante[] partecipanti_iscritti;
-    public Partecipante[] partecipanti_non_iscritti;
+    public List<Partecipante> partecipanti_non_iscritti = new List<Partecipante>();
     public Corso[] corsi;
-
-
-    /*
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if(firstRender)
-        {
-            await ijsRuntime.InvokeVoidAsync("activateSelect2");
-        }
-    }
-    */
+    public bool test;
 
 
     protected override async Task OnInitializedAsync()
@@ -137,9 +127,39 @@ else
          .OrderBy(x => x.DataInizio)
          .ToArrayAsync();
 
+
+        foreach (var part in partecipanti)
+        {
+            test = false;
+
+            foreach (var iscritto in partecipanti_iscritti)
+            {
+                if (iscritto.Id == part.Id)
+                {
+                    if (test == true)
+                    {      
+                        
+                    }
+                    else
+                    { 
+                        test = true; 
+                    }                
+                
+                }
+
+            }
+
+            if (test == false)
+            {
+
+                partecipanti_non_iscritti.Add(part);
+
+            }
+        }
+
     }
 
-    private void OnChangePartecipanteId (ChangeEventArgs x)
+    private void OnChangePartecipanteId(ChangeEventArgs x)
     {
         isc.PartecipanteId = Int32.Parse(x.Value.ToString());
     }
@@ -147,7 +167,7 @@ else
 
     public async void SalvaIscrizione()
     {
-        //inserimento nuovo record            
+        //inserimento nuovo record
         isc.DataIscrizione = DateTime.Now;
         db.TabIscrizioni.Add(isc);
         await db.SaveChangesAsync();
