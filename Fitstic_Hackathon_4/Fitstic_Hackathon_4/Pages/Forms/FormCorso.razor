@@ -130,7 +130,7 @@
 
             <div id="collapseModuliCorso" class="@(CollapsedA? "collapse": "" )">
                 <div class="card-body">
-                    <EditForm Model="@adding_module" OnSubmit="() => AggiungiModuloCorso()"> 
+                    <EditForm Model="mod" OnSubmit="() => AggiungiModuloCorso()"> 
                         <div class="form-group">
                             <label> Inserisci moduli</label> <br />
                             <select class="form-control" name="selMod">
@@ -290,9 +290,10 @@
     private Corso[] altri_corsi;
 
     private Modulo mod_test = new Modulo();
+    private Modulo mod = new Modulo();
     private Corso corso = new Corso();
 
-    
+
     protected override async Task OnInitializedAsync()
     {
 
@@ -357,8 +358,12 @@
 
     public async void AggiungiModuloCorso(int mod_id)
     {
-        db.TabModuli.FindAsync(mod_id).Result.CorsoId = Id;
-        db.SaveChanges();
+        mod_test = await db.TabModuli
+            .Where(x => x.Id == mod.Id)
+            .SingleAsync(); 
+
+        mod_test.CorsoId = Id;
+        await db.SaveChangesAsync();
         await OnInitializedAsync();
         StateHasChanged();
 
