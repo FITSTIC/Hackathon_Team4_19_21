@@ -29,8 +29,7 @@
                 <div class="col-md-4">
                     <div class="card-content">
                         <div class="card-img">
-                            <img class="img-thumbnail" src="https://www.fitstic.it/assets/65dea26ae59afd62ec61fbe2b597da45/img/logo.jpg" alt="">
-                            <span>#fitstic</span>
+                            <img class="img-thumbnail" src="https://www.fitstic.it/assets/65dea26ae59afd62ec61fbe2b597da45/img/logo.jpg" alt="">                            
                         </div>
                         <div class="card-desc">
                             <h3>@c.Nome</h3>
@@ -39,7 +38,8 @@
                             <p> <b> Periodo:<br /> </b> @c.DataInizio.ToShortDateString() - @c.DataFine.ToShortDateString() </p>
                             <p> <b>Sede:</b> @c.Sede</p>
 
-                            <a class="btn-card" href="form-corso/@c.Id">MODIFICA</a>
+                            <a class="btn-card" id="btn-mod" href="form-corso/@c.Id">MODIFICA</a>
+                            <a class="btn-card" id="btn-critics" @onclick="() => EliminaCorso(c)"  >ELIMINA</a>
                         </div>
                     </div>
                 </div>
@@ -47,6 +47,7 @@
              }
          </div>
     </div>
+
 </section>
 
 <!-- details card section starts from here -->
@@ -63,6 +64,14 @@
             .ToArrayAsync();
 
 
+    }
+
+    private async void EliminaCorso(Corso selected_corso)
+    {
+        db.TabCorsi.Remove(selected_corso);
+        await db.SaveChangesAsync();
+        await OnInitializedAsync();
+        StateHasChanged();
     }
 
 

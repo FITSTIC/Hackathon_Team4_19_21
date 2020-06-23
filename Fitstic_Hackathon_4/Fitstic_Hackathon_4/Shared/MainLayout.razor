@@ -6,16 +6,23 @@
 </div> -->
 
 <div class="main">
-    <div class="top-row px-lg-5 auth">
-        <BarraInfo />
-        <div id="marqueeInfo">
-            <marquee style="color:red; font-size:18px"> TEST APPLICAZIONE BLAZOR SERVER - Presentazione ufficiale: venerdì 26/06/2020 ore 17:00 !!  </marquee>
-        </div>
+     <div class="top-row px-lg-5 auth"> 
+        
+        <BarraInfo /> 
+        <!--
+    <div id="marqueeInfo">
+        <marquee style="color:red; font-size:18px"> TEST APPLICAZIONE BLAZOR SERVER - Presentazione ufficiale: venerdì 26/06/2020 ore 17:00 !!  </marquee>
+    </div>
+    -->
         <a href="faq"> <img src="http://icons.iconarchive.com/icons/hopstarter/sleek-xp-basic/256/Help-icon.png" class="img-thumbnail" width="50" height="50" name="questionMark" /></a>
     </div>
 
-    <div class="content px-4">
-        @Body
-        <LoginDisplay />
-    </div>
-</div>
+     <div class="content px-4">       
+         <div id="marqueeInfo">
+             <marquee style="color:red; font-size:20px"> TEST APPLICAZIONE BLAZOR SERVER - Presentazione ufficiale: venerdì 26/06/2020 ore 17:00 !!  </marquee>
+         </div>
+         <br />
+         @Body
+         <LoginDisplay />
+     </div>
+</div> 

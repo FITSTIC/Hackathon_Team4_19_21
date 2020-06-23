@@ -9,8 +9,6 @@
 
 <!--
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
 -->
@@ -23,11 +21,11 @@
                 <div class="text-center">
                     @if (Id == 0)
                     {
-                        <h3>Inserimento NUOVO CORSO</h3>
+                        <div class="h3 font-weight-bold">Inserimento <br /> NUOVO CORSO</div>
                     }
                     else
                     {
-                        <h3>Modifica CORSO</h3>
+                        <h3 class="h3 font-weight-bold">Modifica CORSO </h3>
                     }
 
                 </div>
@@ -54,7 +52,7 @@
                                 <div class="form-group">
                                     <label class="control-label">NOME</label>
                                     <!--Campo x modifica dato o disponibile per nuovo inserimento-->
-                                    <input type="text" class="form-control" id="inputNomePart" @bind-value="corso.Nome" />
+                                    <input type="text" class="form-control font-weight-bold" id="inputNomePart" @bind-value="corso.Nome" />
                                 </div>
                             </div>
                             <div class="col-md-1 col-lg-4">
@@ -106,6 +104,7 @@
                 <div class="col-lg-12">
                     <div class="pull-right">
                         <button type="submit" class="btn btn-success btn-lg" id="btnSubmit"><i class="fa fa-save"></i> Salva</button>
+                        <button type="button" class="btn btn-danger btn-lg" id="btnDel"><i class="fa fa-save"></i> Elimina</button>
                         <a class="btn btn-warning btn-lg" href="corsi" id="btnToTop"><i class="fa fa-arrow-left" href="operatori"></i> Indietro</a>
                     </div>
                 </div>
@@ -116,7 +115,8 @@
 
         <!--CARD MODULI-->
         <!--CARD MODULI-->
-
+        @if (Id != 0)
+        {
         <div class="card card-default">
             <div class="card-header">
                 <h4 class="card-title btn-link">
@@ -128,7 +128,7 @@
                 </h4>
             </div>
 
-            <div id="collapseModuliCorso" class="@(CollapsedA? "collapse": "" )">
+            <div id="collapseModuliCorso" class="@(CollapsedA ? "collapse" : "" )">
                 <div class="card-body">
                     <EditForm Model="mod" OnSubmit="() => AggiungiModuloCorso()"> 
                         <div class="form-group">
@@ -193,7 +193,7 @@
                                         </td>
                                         <td>
                                             <a data-toggle="tooltip" title="Report" data-original-title="Vedi andamento" href="report-modulo/@corso.Id/@modC.Id"><i class="fas fa-signal"></i></a>
-                                            <a data-toggle="tooltip" title="Assegna voti" data-original-title="Assegna voti" href="form-esame/@modC.Id"><i class="fas fa-list-alt"></i></a>
+                                            <a data-toggle="tooltip" title="Assegna voti" data-original-title="Assegna voti" href="form-esame/@corso.Id/@modC.Id"><i class="fas fa-list-alt"></i></a>
                                             <a data-toggle="tooltip" title="Modifica" data-original-title="Modifica" href="form-modulo/@modC.Id"><i class="fas fa-pencil-alt"></i></a>
                                             <a data-toggle="tooltip" title="Modulo non più assegnato" data-original-title="Modulo non più assegnato" @onclick="() => EliminaModuloCorso(modC)"><i class="far fa-trash-alt"></i></a>
                                         </td>
@@ -206,6 +206,12 @@
                 </div>
             </div>
         </div>
+        }
+        else
+        {
+        
+        
+        
 
         <!--CARD ISCRITTI-->
         <!--CARD ISCRITTI-->
@@ -264,9 +270,13 @@
                 </div>
             </div>
         </div>
+        
+        }
+
     </div>
 </div>
 
+        
 
 <!--COMMAND BUTTONS-->
 
@@ -360,7 +370,7 @@
     {
         mod_test = await db.TabModuli
             .Where(x => x.Id == mod.Id)
-            .SingleAsync(); 
+            .SingleAsync();
 
         mod_test.CorsoId = Id;
         await db.SaveChangesAsync();
@@ -387,4 +397,5 @@
         StateHasChanged();
     }
 
+   
 }

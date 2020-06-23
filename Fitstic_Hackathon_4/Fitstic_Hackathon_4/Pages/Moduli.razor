@@ -59,16 +59,21 @@
                                         <td>
                                             <!--CONTROLLO SE INTERVALLO DATE È COMPRESA LA DATA ODIERNA
                                             quindi stampa SÌ verde, oppure NO rosso
-                                                SE IL MODULO NON FA PARTE DI ALCUN CORSO 
+                                                SE IL MODULO NON FA PARTE DI ALCUN CORSO
                                                 "corso?" in arancione-->
 
-                                            @if (mod.DataInizio < DateTime.Now && mod.DataFine > DateTime.Now)
+                                            @if (mod.DataInizio < DateTime.Now && mod.DataFine > DateTime.Now && mod.CorsoId != null)
                                             {
                                                 <font color="green"> <b> SÌ </b></font>
                                             }
-                                            else
+                                            else if (mod.DataInizio > DateTime.Now && mod.DataFine < DateTime.Now && mod.CorsoId != null)
                                             {
                                                 <font color="red"> <b> NO </b></font>
+                                            }
+                                            else
+                                            {
+                                                <font color="orange"> <b> CORSO? </b></font>
+
                                             }
 
 

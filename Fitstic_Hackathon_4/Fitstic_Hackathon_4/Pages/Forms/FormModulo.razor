@@ -22,11 +22,11 @@
                     <div class="text-center">
                         @if (Id == 0)
                         {
-                            <h3>Inserimento NUOVO MODULO</h3>
+                            <div class="h3 font-weight-bold">Inserimento <br /> NUOVO MODULO</div>
                         }
                         else
                         {
-                            <h3>Modifica MODULO</h3>
+                            <div class="h3 font-weight-bold" >Modifica MODULO</div>
                         }
 
                     </div>
@@ -65,13 +65,13 @@
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">DATA INIZIO</label>
-                                    <InputDate class="form-control" id="inpDataInizoMod"  @bind-Value="mod.DataInizio" />
+                                    <InputDate class="form-control" id="inpDataInizoMod" @bind-Value="mod.DataInizio" />
                                 </div>
                             </div>
                             <div class="col-md-2 col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">DATA FINE</label>
-                                    <InputDate  class="form-control" id="inpDataFineMod" @bind-Value="mod.DataFine" />
+                                    <InputDate class="form-control" id="inpDataFineMod" @bind-Value="mod.DataFine" />
                                 </div>
                             </div>
 
@@ -79,6 +79,7 @@
                                 <div class="form-group">
                                     <label class="control-label">DOCENTE</label>
                                     <select class="form-control" id="selDoc" @bind="mod.DocenteId">
+                                        <option>Scegli una voce...</option>
                                         @foreach (var d in docenti)
                                         {
                                             <option value="@d.Id"> @d.Nome @d.Cognome</option>
@@ -91,6 +92,7 @@
                                 <div class="form-group">
                                     <label class="control-label">TUTOR</label>
                                     <select class="form-control" id="selTutor" @bind="mod.TutorId">
+                                        <option>Scegli una voce...</option>
                                         @foreach (var t in tutors)
                                         {
                                             <option value="@t.Id"> @t.Nome @t.Cognome</option>
@@ -106,23 +108,73 @@
             </div>
         </div>
 
-    <!--COMMAND BUTTONS-->
+        <!--COMMAND BUTTONS-->
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="pull-right">
-                <button type="submit" class="btn btn-success btn-lg" id="btnSubmit"><i class="fa fa-save"></i> Salva</button>
-                <a class="btn btn-warning btn-lg" href="moduli" id="btnToTop"><i class="fa fa-arrow-left" href="operatori"></i> Indietro</a>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success btn-lg" id="btnSubmit"><i class="fa fa-save"></i> Salva</button>
+                    <a class="btn btn-warning btn-lg" href="moduli" id="btnToTop"><i class="fa fa-arrow-left" href="operatori"></i> Indietro</a>
+                </div>
             </div>
         </div>
     </div>
-  </div>
 
 </EditForm>
 
 <br />
 <br />
 <br />
+
+@if (showModalIns)
+{
+    <div class="modal fade show" id="myModal" style="display:block" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modulo inserito</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p>Modulo <b>@mod.Nome </b>inserito correttamente!</p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" @onclick=@ModalOk>OK</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+@if (showModalMod)
+{
+    <div class="modal fade show" id="myModal" style="display:block" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modulo modificato</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p>Modulo <b>@mod.Nome </b> modificato correttamente!</p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" @onclick=@ModalOk>OK</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
 
 
 
@@ -132,10 +184,13 @@
     [Parameter]
     public int Id { get; set; }
 
-    public Modulo mod { get; set; }
+    public Modulo mod { get; set; } 
 
     public Docente[] docenti;
     public Tutor[] tutors;
+
+    bool showModalIns = false;
+    bool showModalMod = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -162,22 +217,35 @@
     }
 
 
-    private async void SalvaModulo()
+    private async Task SalvaModulo()
     {
         if (Id == 0)
         {
             //inserimento nuovo record
             db.TabModuli.Add(mod);
             await db.SaveChangesAsync();
+            //void ModalShowIns() => showModalIns = true;
 
         }
         else
         {
             //aggiornamento dati di un record esistente
             await db.SaveChangesAsync();
+            //void ModalShowMod() => showModalMod = true;
         }
 
         NavigationManager.NavigateTo("/moduli");
 
+    }
+
+    /* FUNZIONALITÀ PER MODAL WINDOW*/
+
+
+
+    void ModalOk()
+    {
+        Console.WriteLine("Modal ok");
+        showModalIns = false;
+        showModalMod = false;
     }
 }

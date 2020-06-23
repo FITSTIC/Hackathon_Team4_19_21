@@ -108,8 +108,12 @@ section {
     color: #fff;
 }
 
-    .btn-card:hover {
+    #btn-mod:hover {
         background: orange;
+    }
+
+    #btn-critics:hover {
+        background: red;
     }
 
 a.btn-card {
