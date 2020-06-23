@@ -18,7 +18,7 @@
 </center>
 
 
-<EditForm Model="exam" OnValidSubmit="() => AssegnaVotiModulo()">
+<EditForm Model="exam">
     <div class="container">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12">
@@ -42,27 +42,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var isc in iscr_mod)
+                                    @foreach (var isc in partecipanti_senza_voto)
                                     {
 
                                         <tr>
 
                                             <td id="idPart">
-                                                @isc.Partecipante.Id
+                                                @isc.Id
                                             </td>
                                             <td id="nominativoPartEsame">
-                                                @isc.Partecipante.Nome  @isc.Partecipante.Cognome
+                                                @isc.Nome  @isc.Cognome
                                             </td>
                                             <td id="birthdatePartEsame">
-                                                @isc.Partecipante.DataNascita.ToShortDateString()
+                                                @isc.DataNascita.ToShortDateString()
                                             </td>
-                                            <td id="insVotoEsame">
+                                            <td id="@isc.Id">
 
-                                                <InputNumber id="@isc.Partecipante.Id" @bind-Value="exam.Punteggio"></InputNumber>
+                                                <InputNumber id="@isc.Id" @bind-Value="exam.Punteggio"></InputNumber>
 
                                             </td>
                                             <td id="actions">
-                                                <button id="assegnaVoto" class="btn-link" type="submit"> Assegna </button>
+                                                <button id="assegnaVoto" class="btn-link" @onclick="() => AssegnaVotiModulo(isc.Id)"> Assegna </button>
                                             </td>
 
                                         </tr>
@@ -92,8 +92,11 @@
     [Parameter]
     public int idMod { get; set; }
     public DateTime data_esame { get; set; } = new DateTime();
+    public bool test;
 
-    public Iscrizione[] iscr_mod { get; set; }
+    public Partecipante[] partecipanti_totali { get; set; }
+    public Partecipante[] partecipanti_con_voto { get; set; }
+    public List<Partecipante> partecipanti_senza_voto { get; set; } = new List<Partecipante>();
     public Modulo[] all_modules { get; set; }
     public Esame exam { get; set; } = new Esame();
 
@@ -103,20 +106,56 @@
         this.all_modules = await db.TabModuli
             .ToArrayAsync();
 
-        this.iscr_mod = await db.TabIscrizioni
-            .Include(x => x.Partecipante)
-            .Include(x => x.Corso)
-            .Where(x => x.CorsoId == idCorso)
+        this.partecipanti_totali = await db.TabPartecipanti
             .ToArrayAsync();
+
+        this.partecipanti_con_voto = await db.TabEsami
+            .Include(x => x.Modulo)
+            .Include(x => x.Partecipante)
+            .Select(x => x.Partecipante)
+            .ToArrayAsync();
+
+        foreach (var part in partecipanti_totali)
+        {
+            test = false;
+
+            foreach (var iscritto in partecipanti_con_voto)
+            {
+                if (iscritto.Id == part.Id)
+                {
+                    if (test == true)
+                    {
+
+                    }
+                    else
+                    {
+                        test = true;
+                    }
+
+                }
+
+            }
+
+            if (test == false)
+            {
+
+                partecipanti_senza_voto.Add(part);
+
+            }
+        }
 
     }
 
-    public async void AssegnaVotiModulo()
+    public async void AssegnaVotiModulo(int partId)
     {
         exam.Data = data_esame;
         exam.ModuloId = idMod;
+        exam.PartecipanteId = partId;
         db.TabEsami.Add(exam);
         await db.SaveChangesAsync();
+        await OnInitializedAsync();
+        StateHasChanged();
+        
     }
 
 

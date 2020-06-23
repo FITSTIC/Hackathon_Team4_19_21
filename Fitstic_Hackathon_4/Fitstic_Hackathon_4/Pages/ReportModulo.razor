@@ -4,18 +4,18 @@
 @inject ApplicationDbContext db
 @inject NavigationManager NavigationManager
 
-    <center>
-        <div class="h2 text-dark">Report modulo</div>
+<center>
+    <div class="h2 text-dark">Report modulo</div>
 
-        @foreach (var mod in all_modules)
+    @foreach (var mod in all_modules)
+    {
+        if (mod.Id == idMod)
         {
-            if (mod.Id == idMod)
-            {
-                <div class="h2 text-dark">@mod.Nome</div>
-            }
+            <div class="h2 text-dark">@mod.Nome</div>
         }
+    }
 
-    </center>
+</center>
 
 <br />
 
@@ -35,31 +35,38 @@ else
                     <div class="card-header"></div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">                                
-                               <div> TOTALE ASSEGNATE:
-                                @if (all_votes_exam.Length < all_iscritti.Length)
-                                {
-                                    <div class="text-danger"> @all_votes_exam.Length.ToString() / @all_iscritti.Length</div>
-                                }
-                                else
-                                {
-                                    <div class="text-success"> @all_votes_exam.Length.ToString() / @all_iscritti.Length</div>
-                                }
-                                </div>
-                               <div>
-                                   MEDIA VALUTAZIONI:
+                            <div class="col-md-12">
+                                <a class="btn btn-orange btn-lg">
                                     
-                                   @if (media >= 60)
-                                   {
-                                       <div class="text-success">@media.ToString()</div>
-                                   }
-                                   else
-                                   {
-                                       <div class="text-danger"> @media.ToString()</div>
-                                   }
-                               </div>
+                                        TOTALE ASSEGNATE:
+                                        @if (all_votes_exam.Length < all_iscritti.Length)
+                                        {
+
+                                            <div class="h4 font-weight-bold text-danger"> @all_votes_exam.Length.ToString() su @all_iscritti.Length</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="h4 font-weight-bold text-success"> @all_votes_exam.Length.ToString() su @all_iscritti.Length</div>
+                                        }
+                                    
+                                </a>
+                                <a class="btn btn-orange btn-lg">
+
+                                    MEDIA VALUTAZIONI:
+
+                                    @if (media >= 60)
+                                    {
+                                        <div class="h4 font-weight-bold text-success">@media.ToString()</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="h4 font-weight-bold text-danger"> @media.ToString()</div>
+                                    }
+                                </a>
+
                             </div>
                         </div>
+                        <br />
                         <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
                             <table class="table table-striped">
                                 <thead>
@@ -102,10 +109,10 @@ else
 
 @code {
 
-        [Parameter]
-        public int idCorso { get; set; }
-        [Parameter]
-        public int idMod { get; set; }
+    [Parameter]
+    public int idCorso { get; set; }
+    [Parameter]
+    public int idMod { get; set; }
 
     public int media = 0;
     public int somma = 0;

@@ -1,11 +1,11 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <a id="ToHomePage" href="/">
-            <img id="logoTopNavbar" width="90" height="50" src="https://www.fitstic.it/assets/65dea26ae59afd62ec61fbe2b597da45/img/logo.jpg" />
+        <a  id="ToHomePage" href="/">
+            <img align="left" id="logoTopNavbar" width="90" height="50" src="https://www.fitstic.it/assets/65dea26ae59afd62ec61fbe2b597da45/img/logo.jpg" />
         </a>
       
         <!--<a href="/"> HOME </a>-->
-        <a href="Identity/Account/Manage">Salve, @context.User.Identity.Name!</a>
+        <a id="toAccountSettings"href="Identity/Account/Manage">Salve, @context.User.Identity.Name!</a>
         <form method="post" action="Identity/Account/LogOut">
             <button type="submit" class="nav-link btn btn-link">Log out</button>
         </form>
