@@ -13,8 +13,8 @@ Per informazioni: edoardo.zanotti.studio@fitstic-edu.com
 <b>Developers</b>: Francesco Bolognesi, Edoardo Zanotti <br/>
 <b>Periodo</b>: dal 25 maggio al 25 giugno 2020 <br/>
 <b>Organizzazione</b>: Trello <br/>
-<b>IDE</b>: Visual Studio 2019 (prima versione di pressoché totale compatibilità allo sviluppo Blazor)
-
+<b>IDE</b>: Visual Studio 2019 (prima versione di pressoché totale compatibilità allo sviluppo Blazor)<br/>
+<br/>
 Grazie a <i><a href="https://iorestoacasa.work/">IoRestoACasa.work</i></a> (GitHub: https://github.com/iorestoacasa-work) e <i><a href="https://www.riminilug.it/"> RiminiLUG</i></a><br/> per la piattaforma multimediale utilizzata durante le attività del team in remoto.
 <br/>
 <h2><b>Finalità</b></h2>
@@ -35,14 +35,14 @@ contine il foglio di stile .css comune al progetto e, se necessario, è possibil
   
 
 
-<b>Areas > Identity<b><br/>
+<b>Areas > Identity</b><br/>
 pagine in scaffolding per gestire login e
 registrazione tramite Microsoft Identity; <br/>
 
 <b>Data</b><br/>
 Contiene le strutture delle classe C# per la creazione tramite EntityFramework delle tabelle del database. Inoltre è presente il file ApplicationDbContext che contiente i tipo e nome delle tabelle e le operazioni programmate alla successiva migration (commit);
   <br/>
-<b>Shared</b
+<b>Shared</b><br/>
 file .razor condivisi e visibili a tutta la soluzione con la finalità di gestire e programmare l’interfaccia e la struttura grafica di base (LoginDispay, MainLayout, InfoBar);	
 
 <b>Pages</b><br/>
