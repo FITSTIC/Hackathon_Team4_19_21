@@ -1,5 +1,6 @@
 # Hackathon_Team4_19_21
-Work in progress....<br/>
+Presentazione del progetto: 26 giugno 2020 ore 17:00
+Click <a href="https://meet.google.com/fnd-gyoj-iwg"> qui</a> per partecipare su Google Meet
 Per informazioni: edoardo.zanotti.studio@fitstic-edu.com
 
 <ul>
@@ -57,7 +58,6 @@ SQLIte è comodo per piccoli progetti condivisi perché query, tabelle e report 
 
 
 <h2><b>Descrizione </b></h2>
-Operazioni disponibili per ogni sezione:
 <br/>
 <ul>
   <li>All’accesso è necessario registrarsi o effettuare il login; </li>
@@ -86,7 +86,7 @@ Operazioni disponibili per ogni sezione:
   <li>visualizzare un semplice report con le valutazioni e alcune statistiche</li>
 </ul>
 <br/>
-<li><b>Dalla sezione Moduli è possibile:</b></li>
+<b>Dalla sezione Moduli è possibile:</b>
   <ul>
     <li>visualizzare in una intuitiva tabella nome/docente/tutor del modulo e se è attualmente attivo o no </li>
     <li>aggiungere / eliminare moduli </li>
