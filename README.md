@@ -1,8 +1,10 @@
 # Hackathon_Team4_19_21
-Presentazione del progetto: 26 giugno 2020 ore 17:00
+Presentazione del progetto: 26 giugno 2020 ore 17:00 <br/>
 Click <a href="https://meet.google.com/fnd-gyoj-iwg"> qui</a> per partecipare su Google Meet
 Per informazioni: edoardo.zanotti.studio@fitstic-edu.com
-
+<br/>
+<br/>
+<b>Collegamenti utilities di sviluppo:</b> <br/>
 <ul>
   <li>USER STORIES (Google Fogli) => https://tinyurl.com/ya9hvhvd</li>
   <li>SCHEMA E-R DATABASE (PDF)   => https://tinyurl.com/yapf5cgd</li>
