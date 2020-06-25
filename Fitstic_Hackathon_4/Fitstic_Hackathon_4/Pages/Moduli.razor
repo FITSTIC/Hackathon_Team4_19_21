@@ -3,7 +3,7 @@
 @using Microsoft.EntityFrameworkCore;
 @inject ApplicationDbContext db
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 
 <h1>TUTTI I MODULI</h1>
 
@@ -12,10 +12,10 @@
 <br />
 <br />
 
-@if(all_moduli.Length == 0)
+@if (all_moduli.Length == 0)
 {
     <h3>
-       <font color="red" >NESSUN MODULO INSERITO</font>
+        <font color="red">NESSUN MODULO INSERITO</font>
     </h3>
 }
 <br />
@@ -33,12 +33,12 @@
                                     <th>Materia</th>
                                     <th>Docente</th>
                                     <th>Tutor</th>
-                                    <th>Attivo</th>
+                                    <th>Stato</th>
                                     <th>Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(Modulo mod in all_moduli)
+                                @foreach (Modulo mod in all_moduli)
                                 {
                                     <tr>
                                         <td>
@@ -50,7 +50,7 @@
                                         <td>
                                             @mod.Materia
                                         </td>
-                                        <td >
+                                        <td>
                                             @mod.Docente.Nome @mod.Docente.Cognome
                                         </td>
                                         <td>
@@ -58,19 +58,23 @@
                                         </td>
                                         <td>
                                             <!--CONTROLLO SE INTERVALLO DATE È COMPRESA LA DATA ODIERNA
-                                            quindi stampa SÌ verde, oppure NO rosso
-                                                SE IL MODULO NON FA PARTE DI ALCUN CORSO
-                                                "corso?" in arancione-->
+                                                quindi stampa SÌ verde, oppure NO rosso
+                                                    SE IL MODULO NON FA PARTE DI ALCUN CORSO
+                                                    "corso?" in arancione-->
 
                                             @if (mod.DataInizio < DateTime.Now && mod.DataFine > DateTime.Now && mod.CorsoId != null)
                                             {
-                                                <font color="green"> <b> SÌ </b></font>
+                                                <font color="green"> <b> ATTIVO </b></font>
                                             }
-                                            else if (mod.DataInizio > DateTime.Now && mod.DataFine < DateTime.Now && mod.CorsoId != null)
+                                            else if (mod.DataFine < DateTime.Now && mod.CorsoId != null)
                                             {
-                                                <font color="red"> <b> NO </b></font>
+                                                <font color="red"> <b> TERMINATO </b></font>
                                             }
-                                            else
+                                            else if (mod.DataInizio > DateTime.Now && mod.CorsoId != null)
+                                            {
+                                                <font color="blue"> <b> DA INIZIARE </b></font>
+                                            }
+                                            else if (mod.CorsoId == null)
                                             {
                                                 <font color="orange"> <b> CORSO? </b></font>
 
