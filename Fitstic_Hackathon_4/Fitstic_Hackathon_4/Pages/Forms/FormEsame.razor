@@ -127,7 +127,11 @@ else
         this.all_modules = await db.TabModuli
             .ToArrayAsync();
 
-        this.partecipanti_totali = await db.TabPartecipanti
+        this.partecipanti_totali = await db.TabIscrizioni
+            .Include(x => x.Partecipante)
+            .Include(x => x.Corso)
+            .Where(x=> x.CorsoId== idCorso)
+            .Select(x=> x.Partecipante)
             .ToArrayAsync();
 
         this.partecipanti_con_voto = await db.TabEsami

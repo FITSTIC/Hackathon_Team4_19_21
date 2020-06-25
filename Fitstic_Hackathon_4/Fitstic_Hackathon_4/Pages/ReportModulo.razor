@@ -135,6 +135,9 @@ else
             .ToArrayAsync();
 
         this.all_iscritti = await db.TabIscrizioni
+            .Include(x=> x.Corso)
+            .Include(x => x.Partecipante)
+            .Where(x=> x.CorsoId == idCorso)
             .ToArrayAsync();
 
 
