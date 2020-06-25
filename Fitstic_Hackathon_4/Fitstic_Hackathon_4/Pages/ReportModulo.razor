@@ -5,13 +5,13 @@
 @inject NavigationManager NavigationManager
 
 <center>
-    <div class="h2 text-dark">Report modulo</div>
+    <div class="h2 font-weight-bold">Report modulo</div>
 
     @foreach (var mod in all_modules)
     {
         if (mod.Id == idMod)
         {
-            <div class="h2 text-dark">@mod.Nome</div>
+            <div class="h2 font-weight-bold">@mod.Nome</div>
         }
     }
 
@@ -21,7 +21,7 @@
 
 @if (all_votes_exam.Length == 0)
 {
-    <div class="h3 text-danger">NESSUN ESAME SVOLTO PER QUESTO MODULO! </div>
+    <div class="h2 text-danger">NESSUN ESAME SVOLTO PER QUESTO MODULO! </div>
     <br />
     <a class="btn btn-warning btn-lg" href="./" id="btnToTop"><i class="fa fa-home" href="/"></i> Home</a>
 }

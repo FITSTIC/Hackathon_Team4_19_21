@@ -6,77 +6,98 @@
 @inject IJSRuntime ijsRuntime
 
 <center>
-    <h1>Inserimento voti modulo</h1>
+    <div class="h2 font-weight-bold">Inserimento voti modulo</div>
 
     @foreach (var mod in all_modules)
     {
         if (mod.Id == idMod)
         {
-            <h1>@mod.Nome</h1>
+            <div class="h2 font-weight-bold">@mod.Nome</div>
         }
     }
 </center>
+<br />
+@if (partecipanti_totali.Length == 0)
+{
+    <div class="h2 text-danger"> NESSUN PARTECIPANTE ISCRITTO <br /> </div>
+    <a class="btn button btn-warning btn-lg" href="corsi"><i class="fas fa-clone f-left" href="corsi"></i> Corsi </a>
 
 
-<EditForm Model="exam">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                    </div>
-                    <div class="card-body">
-                        <br />
-                        <label>Data esame:</label>
-                        <input type="date" class="form-control" @bind="data_esame" />
-                        <br />
-                        <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th><b> Nome Cognome </b></th>
-                                        <th>Data Nascita</th>
-                                        <th>Voto</th>
-                                        <th>Azioni</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var isc in partecipanti_senza_voto)
-                                    {
+}
+else
+{
 
+}
+
+@if (partecipanti_senza_voto.Count == 0)
+{
+    <div class="h2 text-danger">NESSUN VOTO DA INSERIRE <br /> Verifica il report riassuntivo!</div>
+    <a class="btn button btn-warning btn-lg" href="report-modulo/@idCorso/@idMod"><i class="fas fa-signal" href="report-modulo/@idCorso/@idMod"></i> REPORT </a>
+
+}
+else
+{
+
+    <EditForm Model="exam">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body">
+                            <br />
+                            <label>Data esame:</label>
+                            <input type="date" class="form-control" @bind="data_esame" />
+                            <br />
+                            <div class="table-responsive" id="proTeamScroll" tabindex="2" style="height: 400px; overflow: hidden; outline: none;">
+                                <table class="table table-striped">
+                                    <thead>
                                         <tr>
-
-                                            <td id="idPart">
-                                                @isc.Id
-                                            </td>
-                                            <td id="nominativoPartEsame">
-                                                @isc.Nome  @isc.Cognome
-                                            </td>
-                                            <td id="birthdatePartEsame">
-                                                @isc.DataNascita.ToShortDateString()
-                                            </td>
-                                            <td id="@isc.Id">
-
-                                                <InputNumber id="@isc.Id" @bind-Value="exam.Punteggio"></InputNumber>
-
-                                            </td>
-                                            <td id="actions">
-                                                <button id="assegnaVoto" class="btn-link" @onclick="() => AssegnaVotiModulo(isc.Id)"> Assegna </button>
-                                            </td>
-
+                                            <th>#</th>
+                                            <th><b> Nome Cognome </b></th>
+                                            <th>Data Nascita</th>
+                                            <th>Voto</th>
+                                            <th>Azioni</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var isc in partecipanti_senza_voto)
+                                        {
 
-                                    }
-                                </tbody>
-                            </table>
+                                            <tr>
+
+                                                <td id="idPart">
+                                                    @isc.Id
+                                                </td>
+                                                <td id="nominativoPartEsame">
+                                                    @isc.Nome  @isc.Cognome
+                                                </td>
+                                                <td id="birthdatePartEsame">
+                                                    @isc.DataNascita.ToShortDateString()
+                                                </td>
+                                                <td id="@isc.Id">
+
+                                                    <InputNumber id="@isc.Id" @bind-Value="exam.Punteggio"></InputNumber>
+
+                                                </td>
+                                                <td id="actions">
+                                                    <button id="assegnaVoto" class="btn-link" @onclick="() => AssegnaVotiModulo(isc.Id)"> Assegna </button>
+                                                </td>
+
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</EditForm>
+    </EditForm>
+}
 <br />
 
 <!-- <button type="submit" class="btn btn-warning btn-lg " id="btnSubmitVotes"><i class="fa fa-saved" > </i> ASSEGNA </button> -->
@@ -155,7 +176,7 @@
         await db.SaveChangesAsync();
         await OnInitializedAsync();
         StateHasChanged();
-        
+
     }
 
 
