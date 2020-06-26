@@ -25,23 +25,26 @@
                     <div class="text-center">
                         @if (Id == 0)
                         {
-                            <h3>Inserimento NUOVO PERSONALE</h3>
+                            <div class="h2 font-weight-bold">Inserimento <br /> NUOVO PERSONALE</div>
                         }
                         else
                         {
-                            <h3>Modifica PERSONALE</h3>
+                            <div class="h2 font-weight-bold">Modifica <br/> PERSONALE</div>
                         }
 
                     </div>
                 </div>
             </div>
 
-            <label>Tipo di inserimento</label>
-            <select @bind="tipo" class="form-control" id="selTipoIns">
-                <option value="@TipoPersonale.Organizzatore">ORGANIZZATORE</option>
-                <option value="@TipoPersonale.Docente">DOCENTE</option>
-                <option value="@TipoPersonale.Tutor">TUTOR</option>
-            </select>
+            @if (Id == 0)
+            {
+                <label>Tipo di inserimento</label>
+                <select @bind="tipo" class="form-control" id="selTipoIns">
+                    <option value="@TipoPersonale.Organizzatore">ORGANIZZATORE</option>
+                    <option value="@TipoPersonale.Docente">DOCENTE</option>
+                    <option value="@TipoPersonale.Tutor">TUTOR</option>
+                </select>
+            }
 
             <br />
 
