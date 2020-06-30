@@ -96,6 +96,13 @@ SQLIte è comodo per piccoli progetti condivisi perché query, tabelle e report 
   </ul>
  </ul>
  
+ <h2><b>Bug e criticità da risolvere </b></h2>
+  <ul>
+    <li>interfaccia inserimento VOTI: InputNumber non correttamente configurato (ad ogni modifica cambiano tutti i campi) </li>
+    <li>Errore 19/1811 SQLite durante eliminazione CORSO </li>
+    <li>la pagina FormEsame non si ricarica correttamente, <br/>quindi non mostra le modifiche appena effettuate </li> 
+ </ul>
+ 
 
 
 
